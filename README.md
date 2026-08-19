@@ -1,11 +1,23 @@
-<div align="center">
+# ContentFlow — Social Media Automation Platform
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+A social media automation platform for **LinkedIn** and **Instagram**, backed by **Django**, **Celery**, **Google Sheets**, and **Gemini 3.7 Flash AI**.
 
-  <h1>Built with AI Studio</h2>
+## Core Features
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+- 🖤 **Minimalist Black & White UI**: Designed with **Urbanist** typography, clean rounded edges, and high-contrast ergonomics.
+- ⚡ **Dual-Channel Generator**: Real-time drafting for LinkedIn & Instagram simultaneously with platform-specific formatting and live mockup previews.
+- 🤖 **Gemini 3.7 Flash AI Engine**: Hooks crafter, tone selector, hashtag generation, and content scoring audit.
+- 📊 **Google Sheets Bi-Directional Pipeline**: Use Google Sheets as an editorial calendar with automatic sync to Celery queues and analytics write-back.
+- ⏱️ **Automated Scheduling Queue**: Timed publishing dispatcher powered by Celery worker and Celery Beat.
+- 📈 **Performance & Analytics Hub**: Real-time cross-platform metrics, reach growth trajectories, channel breakdown, and peak publishing windows.
+- 📁 **Django Backend Explorer**: Interactive in-app codebase viewer for all Django apps, tasks, serializers, and documentation.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Running Locally
 
-</div>
+```bash
+# Frontend & Express Gemini Proxy
+npm run dev
+
+# Or with Docker Compose
+docker-compose up --build
+```
