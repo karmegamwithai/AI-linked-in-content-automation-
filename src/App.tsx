@@ -209,7 +209,7 @@ export default function App() {
         />
 
         {/* Dynamic Page Content with mobile-safe padding */}
-        <main className="flex-1 p-4 sm:p-6 md:p-8 lg:p-10 max-w-7xl mx-auto overflow-y-auto pb-24 lg:pb-10 bg-white w-full">
+        <main className="flex-1 p-3 sm:p-6 md:p-8 lg:p-10 max-w-7xl mx-auto overflow-y-auto pb-28 lg:pb-10 bg-white w-full">
           {currentPage === 'dashboard' && (
             <Dashboard
               posts={filteredPosts}
