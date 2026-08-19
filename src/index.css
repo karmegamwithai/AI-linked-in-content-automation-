@@ -6,27 +6,32 @@
   }
 
   body {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #000000;
+    color: #ffffff;
     overflow-x: hidden;
+  }
+
+  ::selection {
+    background: #ec4899;
+    color: #ffffff;
   }
 }
 
-/* Custom sleek scrollbar for Bento Grid minimalist aesthetic */
+/* Custom dark scrollbar with subtle violet/pink accent on hover */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f4f4f5;
+  background: #09090b;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
+  background: #27272a;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a1a1aa;
+  background: #7c3aed;
 }

@@ -3,17 +3,15 @@ import {
   Linkedin, 
   Instagram, 
   Clock, 
-  CheckCircle2, 
-  FileText, 
-  Trash2, 
   Edit3, 
+  Trash2, 
   Send, 
+  TrendingUp, 
   Eye, 
-  Heart, 
   MessageSquare, 
-  Repeat2,
-  Table,
-  Check
+  Heart,
+  Share2,
+  Table
 } from 'lucide-react';
 import { Post } from '../types';
 
@@ -21,8 +19,7 @@ interface PostCardProps {
   post: Post;
   onEdit: (post: Post) => void;
   onDelete: (id: string) => void;
-  onPublishNow?: (post: Post) => void;
-  onDuplicate?: (post: Post) => void;
+  onPublishNow?: (id: string) => void;
 }
 
 export const PostCard: React.FC<PostCardProps> = ({
@@ -30,196 +27,164 @@ export const PostCard: React.FC<PostCardProps> = ({
   onEdit,
   onDelete,
   onPublishNow,
-  onDuplicate,
 }) => {
-  const isPublished = post.status === 'published';
   const isScheduled = post.status === 'scheduled';
+  const isPublished = post.status === 'published';
   const isDraft = post.status === 'draft';
 
-  const formatDateTime = (isoString?: string) => {
-    if (!isoString) return '';
-    const date = new Date(isoString);
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
+  const hasLinkedin = post.platforms.includes('linkedin');
+  const hasInstagram = post.platforms.includes('instagram');
 
   return (
-    <div
-      id={`post-card-${post.id}`}
-      className="flex flex-col justify-between p-6 rounded-3xl bg-zinc-50 border border-black/5 hover:border-black/20 transition-all shadow-none group"
-    >
-      <div>
-        {/* Top bar: Platforms & Status */}
-        <div className="flex items-center justify-between gap-2 mb-3">
-          {/* Platforms */}
+    <div className="p-6 md:p-7 rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4 hover:border-zinc-700/80 transition-all flex flex-col justify-between group shadow-none relative overflow-hidden">
+      <div className="space-y-3">
+        {/* Card Header: Platforms & Status */}
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            {post.platforms.includes('linkedin') && (
-              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white border border-black/5 text-black text-[11px] font-bold shadow-2xs">
-                <Linkedin className="w-3 h-3" />
-                <span>LI</span>
+            {hasLinkedin && (
+              <span className="p-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-sky-400">
+                <Linkedin className="w-3.5 h-3.5" />
               </span>
             )}
-            {post.platforms.includes('instagram') && (
-              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white border border-black/5 text-black text-[11px] font-bold shadow-2xs">
-                <Instagram className="w-3 h-3" />
-                <span>IG</span>
+            {hasInstagram && (
+              <span className="p-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-pink-400">
+                <Instagram className="w-3.5 h-3.5" />
               </span>
             )}
             {post.googleSheetsRowId && (
               <span 
-                className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/5 text-black/60 text-[10px] font-mono"
-                title={`Google Sheets Row #${post.googleSheetsRowId}`}
+                className="p-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-emerald-400"
+                title={`Linked to Google Sheets Row #${post.googleSheetsRowId}`}
               >
-                <Table className="w-2.5 h-2.5" />
-                <span>Row {post.googleSheetsRowId}</span>
+                <Table className="w-3.5 h-3.5" />
               </span>
             )}
           </div>
 
-          {/* Status Badge */}
-          <div>
-            {isPublished && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-black text-white text-[10px] font-bold uppercase tracking-wider">
-                <Check className="w-3 h-3" />
-                <span>Published</span>
-              </span>
-            )}
-            {isScheduled && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-black/10 text-black text-[10px] font-bold">
-                <Clock className="w-3 h-3 text-black" />
-                <span>{formatDateTime(post.scheduledTime)}</span>
-              </span>
-            )}
-            {isDraft && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-black/5 text-black/60 text-[10px] font-bold uppercase">
-                <FileText className="w-3 h-3" />
-                <span>Draft</span>
-              </span>
-            )}
+          <div className="flex items-center gap-2">
+            <span
+              className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                isPublished
+                  ? 'bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-pink-300 border border-pink-500/30'
+                  : isScheduled
+                  ? 'bg-violet-950/40 text-violet-300 border border-violet-800/50'
+                  : 'bg-zinc-900 text-zinc-400 border border-zinc-800'
+              }`}
+            >
+              {post.status}
+            </span>
           </div>
         </div>
 
         {/* Post Title */}
-        <h3 className="text-base font-bold text-black line-clamp-1 mb-2">
+        <h4 className="text-base font-bold text-white tracking-tight line-clamp-1 group-hover:text-pink-300 transition-colors">
           {post.title}
-        </h3>
+        </h4>
 
-        {/* Media Thumbnail */}
-        {post.mediaUrls.length > 0 && (
-          <div className="relative mb-3 rounded-2xl overflow-hidden bg-zinc-100 border border-black/5 aspect-video max-h-44">
+        {/* Content Snippet */}
+        <p className="text-xs text-zinc-400 leading-relaxed line-clamp-3 font-normal">
+          {post.contentLinkedin || post.contentInstagram || 'No content drafted.'}
+        </p>
+
+        {/* Media Preview if attached */}
+        {post.mediaUrls && post.mediaUrls.length > 0 && (
+          <div className="rounded-2xl overflow-hidden aspect-video bg-black border border-zinc-800/80 mt-2">
             <img
               src={post.mediaUrls[0]}
-              alt={post.title}
+              alt=""
               referrerPolicy="no-referrer"
-              className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
-            {post.mediaUrls.length > 1 && (
-              <span className="absolute bottom-2 right-2 px-2 py-0.5 rounded-full bg-black text-white text-[10px] font-bold">
-                1/{post.mediaUrls.length} Slides
-              </span>
-            )}
           </div>
         )}
 
-        {/* Post Content Snippet */}
-        <p className="text-xs text-black/60 line-clamp-3 leading-relaxed mb-3 whitespace-pre-line font-medium">
-          {post.contentLinkedin || post.contentInstagram}
-        </p>
-
         {/* Tags */}
-        {post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {post.tags.slice(0, 3).map((tag, idx) => (
-              <span
-                key={idx}
-                className="text-[10px] px-2.5 py-0.5 rounded-full bg-white border border-black/5 text-black/70 font-semibold"
-              >
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 pt-1">
+            {post.tags.slice(0, 3).map((tag, i) => (
+              <span key={i} className="text-[10px] font-medium text-pink-400/80 bg-zinc-900 px-2.5 py-0.5 rounded-full border border-zinc-800/80">
                 #{tag.replace('#', '')}
               </span>
             ))}
+            {post.tags.length > 3 && (
+              <span className="text-[10px] text-zinc-500 font-medium px-1">
+                +{post.tags.length - 3}
+              </span>
+            )}
           </div>
         )}
       </div>
 
-      <div>
-        {/* Analytics if published */}
-        {isPublished && post.analytics && (
-          <div className="pt-3 mb-3 border-t border-black/5 grid grid-cols-4 gap-1.5 text-center">
-            <div className="p-2 rounded-xl bg-white border border-black/5">
-              <span className="text-[9px] font-bold uppercase text-black/40 flex items-center justify-center gap-0.5">
-                <Eye className="w-2.5 h-2.5" /> Reach
-              </span>
-              <span className="text-xs font-black text-black">
-                {(post.analytics.impressions / 1000).toFixed(1)}k
-              </span>
-            </div>
-            <div className="p-2 rounded-xl bg-white border border-black/5">
-              <span className="text-[9px] font-bold uppercase text-black/40 flex items-center justify-center gap-0.5">
-                <Heart className="w-2.5 h-2.5" /> Likes
-              </span>
-              <span className="text-xs font-black text-black">{post.analytics.likes}</span>
-            </div>
-            <div className="p-2 rounded-xl bg-white border border-black/5">
-              <span className="text-[9px] font-bold uppercase text-black/40 flex items-center justify-center gap-0.5">
-                <MessageSquare className="w-2.5 h-2.5" /> Comm
-              </span>
-              <span className="text-xs font-black text-black">{post.analytics.comments}</span>
-            </div>
-            <div className="p-2 rounded-xl bg-white border border-black/5">
-              <span className="text-[9px] font-bold uppercase text-black/40">CTR</span>
-              <span className="text-xs font-black text-black">{post.analytics.engagementRate}%</span>
-            </div>
-          </div>
-        )}
+      {/* Footer Details & Actions */}
+      <div className="pt-4 border-t border-zinc-900 space-y-3">
+        {/* Schedule / Published timestamp or Analytics */}
+        <div className="flex items-center justify-between text-xs text-zinc-400">
+          {isScheduled && post.scheduledTime && (
+            <span className="flex items-center gap-1 font-mono text-[11px] text-violet-300">
+              <Clock className="w-3.5 h-3.5 text-violet-400" />
+              <span>{new Date(post.scheduledTime).toLocaleDateString()} at {new Date(post.scheduledTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+            </span>
+          )}
 
-        {/* Card Actions */}
-        <div className="pt-3 border-t border-black/5 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          {isPublished && post.analytics && (
+            <div className="flex items-center gap-3 text-[11px] font-bold text-zinc-300">
+              <span className="flex items-center gap-1 text-pink-400">
+                <Eye className="w-3 h-3" /> {(post.analytics.impressions / 1000).toFixed(1)}k
+              </span>
+              <span className="flex items-center gap-1 text-zinc-400">
+                <Heart className="w-3 h-3" /> {post.analytics.likes}
+              </span>
+              <span className="flex items-center gap-1 text-zinc-400">
+                <MessageSquare className="w-3 h-3" /> {post.analytics.comments}
+              </span>
+            </div>
+          )}
+
+          {isDraft && (
+            <span className="text-[11px] text-zinc-500">
+              Updated {new Date(post.updatedAt).toLocaleDateString()}
+            </span>
+          )}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex items-center justify-between gap-2 pt-1">
+          <div className="flex items-center gap-1.5">
             <button
-              id={`btn-edit-post-${post.id}`}
               onClick={() => onEdit(post)}
-              className="flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-black bg-white hover:bg-zinc-100 rounded-full transition-colors border border-black/10 shadow-2xs"
+              className="p-2 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 text-xs transition-all"
+              title="Edit Post"
             >
-              <Edit3 className="w-3 h-3" />
-              <span>Edit</span>
+              <Edit3 className="w-3.5 h-3.5" />
             </button>
-
-            {isScheduled && onPublishNow && (
-              <button
-                id={`btn-card-publish-now-${post.id}`}
-                onClick={() => onPublishNow(post)}
-                className="flex items-center gap-1 px-3.5 py-1.5 text-xs font-bold text-white bg-black hover:opacity-90 rounded-full transition-colors shadow-2xs"
-              >
-                <Send className="w-3 h-3" />
-                <span>Publish</span>
-              </button>
-            )}
-
-            {isPublished && onDuplicate && (
-              <button
-                id={`btn-repurpose-post-${post.id}`}
-                onClick={() => onDuplicate(post)}
-                className="flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-black bg-white hover:bg-zinc-100 rounded-full transition-colors border border-black/10"
-                title="Repurpose as new Draft"
-              >
-                <Repeat2 className="w-3 h-3" />
-                <span>Repurpose</span>
-              </button>
-            )}
+            <button
+              onClick={() => onDelete(post.id)}
+              className="p-2 rounded-full bg-zinc-900 hover:bg-rose-950/40 text-zinc-400 hover:text-rose-400 border border-zinc-800 text-xs transition-all"
+              title="Delete Post"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
           </div>
 
-          <button
-            id={`btn-delete-post-${post.id}`}
-            onClick={() => onDelete(post.id)}
-            className="p-2 text-black/30 hover:text-rose-600 rounded-full hover:bg-rose-50 transition-colors"
-            title="Delete Post"
-          >
-            <Trash2 className="w-3.5 h-3.5" />
-          </button>
+          {isScheduled && onPublishNow && (
+            <button
+              onClick={() => onPublishNow(post.id)}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 rounded-full shadow-sm shadow-pink-500/20 active:scale-95 transition-all"
+            >
+              <Send className="w-3 h-3" />
+              <span>Publish Now</span>
+            </button>
+          )}
+
+          {isDraft && onPublishNow && (
+            <button
+              onClick={() => onPublishNow(post.id)}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white bg-zinc-800 hover:bg-zinc-700 rounded-full transition-all"
+            >
+              <Send className="w-3 h-3" />
+              <span>Dispatch</span>
+            </button>
+          )}
         </div>
       </div>
     </div>

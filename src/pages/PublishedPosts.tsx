@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
-import { CheckCircle2, TrendingUp, Eye, Heart, MessageSquare, Repeat2, ArrowUpRight } from 'lucide-react';
+import React from 'react';
+import { 
+  CheckCircle, 
+  TrendingUp, 
+  Eye, 
+  Heart, 
+  MessageSquare, 
+  Share2,
+  Sparkles
+} from 'lucide-react';
 import { Post } from '../types';
 import { PostCard } from '../components/PostCard';
 
@@ -7,21 +15,14 @@ interface PublishedPostsProps {
   posts: Post[];
   onEditPost: (post: Post) => void;
   onDeletePost: (id: string) => void;
-  onDuplicatePost: (post: Post) => void;
 }
 
 export const PublishedPosts: React.FC<PublishedPostsProps> = ({
   posts,
   onEditPost,
   onDeletePost,
-  onDuplicatePost,
 }) => {
-  const [filterPlatform, setFilterPlatform] = useState<'all' | 'linkedin' | 'instagram'>('all');
-
-  const published = posts
-    .filter((p) => p.status === 'published')
-    .filter((p) => (filterPlatform === 'all' ? true : p.platforms.includes(filterPlatform)))
-    .sort((a, b) => new Date(b.publishedAt || b.createdAt).getTime() - new Date(a.publishedAt || a.createdAt).getTime());
+  const published = posts.filter((p) => p.status === 'published');
 
   const totalImpressions = published.reduce((acc, p) => acc + (p.analytics?.impressions || 0), 0);
   const totalLikes = published.reduce((acc, p) => acc + (p.analytics?.likes || 0), 0);
@@ -30,59 +31,32 @@ export const PublishedPosts: React.FC<PublishedPostsProps> = ({
   return (
     <div id="page-published-posts" className="space-y-6">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-zinc-50 border border-black/5">
-        <div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
+
+        <div className="z-10">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl md:text-3xl font-bold text-black tracking-tight">
-              Published Archive
+            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+              Published Content Archive
             </h1>
-            <span className="text-xs font-bold px-3 py-1 bg-black text-white rounded-full">
-              {published.length} Live
+            <span className="text-[10px] font-bold px-2.5 py-0.5 bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-pink-300 border border-pink-500/30 rounded-full">
+              {published.length} Live Posts
             </span>
           </div>
-          <p className="text-xs text-black/40 font-bold uppercase tracking-wider mt-0.5">
-            Historical distribution metrics & performance telemetry
+          <p className="text-xs text-zinc-400 font-medium mt-1">
+            Historical log of live posts across your personal LinkedIn and Instagram creator accounts
           </p>
         </div>
 
-        {/* Platform Filters */}
-        <div className="flex items-center bg-white p-1 rounded-full border border-black/5 text-xs font-semibold">
-          {(['all', 'linkedin', 'instagram'] as const).map((p) => (
-            <button
-              key={p}
-              onClick={() => setFilterPlatform(p)}
-              className={`px-3.5 py-1.5 rounded-full capitalize transition-all ${
-                filterPlatform === p
-                  ? 'bg-black text-white font-bold'
-                  : 'text-black/50 hover:text-black'
-              }`}
-            >
-              {p}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Aggregate Performance Bento Bar */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-6 rounded-3xl bg-zinc-50 border border-black/5">
-          <span className="text-xs font-bold uppercase tracking-widest text-black/40">Total Impressions</span>
-          <div className="text-3xl lg:text-4xl font-black text-black mt-2">
-            {(totalImpressions / 1000).toFixed(1)}k
+        <div className="flex items-center gap-4 text-xs font-bold z-10">
+          <div className="flex items-center gap-1.5 text-pink-400 bg-zinc-900 px-3.5 py-1.5 rounded-full border border-zinc-800">
+            <Eye className="w-3.5 h-3.5" />
+            <span>{(totalImpressions / 1000).toFixed(1)}k Total Reach</span>
           </div>
-          <p className="text-xs text-black/50 mt-1">LinkedIn & IG Combined</p>
-        </div>
-
-        <div className="p-6 rounded-3xl bg-zinc-50 border border-black/5">
-          <span className="text-xs font-bold uppercase tracking-widest text-black/40">Total Reactions</span>
-          <div className="text-3xl lg:text-4xl font-black text-black mt-2">{totalLikes}</div>
-          <p className="text-xs text-black/50 mt-1">Organic Applauds & Likes</p>
-        </div>
-
-        <div className="p-6 rounded-3xl bg-zinc-50 border border-black/5">
-          <span className="text-xs font-bold uppercase tracking-widest text-black/40">Discussion Comments</span>
-          <div className="text-3xl lg:text-4xl font-black text-black mt-2">{totalComments}</div>
-          <p className="text-xs text-black/50 mt-1">Direct Community Engagements</p>
+          <div className="flex items-center gap-1.5 text-violet-400 bg-zinc-900 px-3.5 py-1.5 rounded-full border border-zinc-800">
+            <Heart className="w-3.5 h-3.5" />
+            <span>{totalLikes} Likes</span>
+          </div>
         </div>
       </div>
 
@@ -95,16 +69,17 @@ export const PublishedPosts: React.FC<PublishedPostsProps> = ({
               post={post}
               onEdit={onEditPost}
               onDelete={onDeletePost}
-              onDuplicate={onDuplicatePost}
             />
           ))}
         </div>
       ) : (
-        <div className="p-12 rounded-3xl bg-zinc-50 border border-black/5 text-center space-y-3">
-          <CheckCircle2 className="w-10 h-10 mx-auto text-black/30" />
-          <h3 className="text-base font-bold text-black">No published posts yet</h3>
-          <p className="text-xs text-black/50 max-w-md mx-auto">
-            Posts that have been published through Celery background tasks or manual dispatch will appear here.
+        <div className="p-12 text-center rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4">
+          <div className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mx-auto text-pink-400">
+            <CheckCircle className="w-6 h-6" />
+          </div>
+          <h3 className="text-lg font-bold text-white">No published posts recorded yet</h3>
+          <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+            Dispatched posts and their live telemetry from your LinkedIn and Instagram feeds will aggregate here.
           </p>
         </div>
       )}

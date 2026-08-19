@@ -1,5 +1,10 @@
 import React from 'react';
-import { FileText, Plus, ArrowRight } from 'lucide-react';
+import { 
+  FileText, 
+  Plus, 
+  Sparkles, 
+  PenSquare
+} from 'lucide-react';
 import { Post } from '../types';
 import { PostCard } from '../components/PostCard';
 
@@ -7,7 +12,7 @@ interface DraftsProps {
   posts: Post[];
   onEditPost: (post: Post) => void;
   onDeletePost: (id: string) => void;
-  onPublishNow: (post: Post) => void;
+  onPublishNow: (id: string) => void;
   onOpenCreate: () => void;
 }
 
@@ -23,28 +28,30 @@ export const Drafts: React.FC<DraftsProps> = ({
   return (
     <div id="page-drafts" className="space-y-6">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-zinc-50 border border-black/5">
-        <div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
+
+        <div className="z-10">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl md:text-3xl font-bold text-black tracking-tight">
-              Drafts Bank
+            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+              Personal Drafts & Idea Bank
             </h1>
-            <span className="text-xs font-bold px-3 py-1 bg-black text-white rounded-full">
-              {drafts.length} Ideas
+            <span className="text-[10px] font-bold px-2.5 py-0.5 bg-zinc-800 text-zinc-300 rounded-full border border-zinc-700">
+              {drafts.length} Unfinished Ideas
             </span>
           </div>
-          <p className="text-xs text-black/40 font-bold uppercase tracking-wider mt-0.5">
-            WIP concepts, hooks, and unpublished social experiments
+          <p className="text-xs text-zinc-400 font-medium mt-1">
+            Work-in-progress thoughts, unrefined reflections, and raw outlines
           </p>
         </div>
 
         <button
-          id="btn-drafts-create"
+          id="btn-create-draft"
           onClick={onOpenCreate}
-          className="flex items-center gap-2 px-5 py-2.5 bg-black text-white text-xs font-bold rounded-full hover:opacity-90 transition-all shadow-xs active:scale-95"
+          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 text-white text-xs font-bold rounded-full shadow-md shadow-pink-500/20 transition-all z-10 active:scale-95"
         >
           <Plus className="w-3.5 h-3.5" />
-          <span>+ New Draft</span>
+          <span>+ New Idea Draft</span>
         </button>
       </div>
 
@@ -62,17 +69,19 @@ export const Drafts: React.FC<DraftsProps> = ({
           ))}
         </div>
       ) : (
-        <div className="p-12 rounded-3xl bg-zinc-50 border border-black/5 text-center space-y-3">
-          <FileText className="w-10 h-10 mx-auto text-black/30" />
-          <h3 className="text-base font-bold text-black">No drafts saved</h3>
-          <p className="text-xs text-black/50 max-w-md mx-auto">
-            Use the editor to brainstorm concepts and save them as drafts for future review.
+        <div className="p-12 text-center rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4">
+          <div className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mx-auto text-pink-400">
+            <FileText className="w-6 h-6" />
+          </div>
+          <h3 className="text-lg font-bold text-white">No drafts in your bank</h3>
+          <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+            Jot down loose thoughts or let Gemini AI draft a personal hook that you can finish later.
           </p>
           <button
             onClick={onOpenCreate}
-            className="mt-2 px-6 py-2.5 bg-black text-white text-xs font-bold rounded-full hover:opacity-90"
+            className="px-6 py-2.5 bg-gradient-to-r from-pink-500 to-violet-600 text-white text-xs font-bold rounded-full shadow-md shadow-pink-500/20"
           >
-            + Create First Draft
+            + Start a Quick Draft
           </button>
         </div>
       )}

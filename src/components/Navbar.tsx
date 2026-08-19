@@ -5,10 +5,10 @@ import {
   Linkedin, 
   Instagram, 
   Table, 
-  CheckCircle2, 
   Code2, 
   Search,
-  Check
+  Check,
+  UserCheck
 } from 'lucide-react';
 import { ConnectedAccount, GoogleSheetsConfig } from '../types';
 
@@ -35,34 +35,39 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header 
       id="main-navbar"
-      className="sticky top-0 z-30 flex items-center justify-between px-6 md:px-10 py-4 bg-white/90 backdrop-blur-md border-b border-black/5 text-black"
+      className="sticky top-0 z-30 flex items-center justify-between px-6 md:px-10 py-3.5 bg-black/90 backdrop-blur-md border-b border-zinc-800/80 text-white"
     >
-      {/* Brand / Logo */}
+      {/* Brand / Logo & Individual Identity */}
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-            <div className="w-3.5 h-3.5 border-2 border-white rounded-sm" />
+          <div className="w-8 h-8 bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-pink-500 rounded-full flex items-center justify-center shadow-md shadow-pink-500/20">
+            <Sparkles className="w-4 h-4 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-bold tracking-tight uppercase text-black flex items-center gap-2">
-              ContentFlow
-              <span className="text-[10px] uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full bg-black/5 text-black/60">
-                Bento
+            <div className="flex items-center gap-2">
+              <h1 className="text-base font-bold tracking-tight text-white flex items-center gap-2">
+                ContentFlow
+              </h1>
+              <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-pink-300 border border-pink-500/30">
+                Personal Creator
               </span>
-            </h1>
+            </div>
+            <p className="text-[10px] text-zinc-400 font-medium hidden sm:block">
+              Solo LinkedIn & Instagram Engine
+            </p>
           </div>
         </div>
 
         {/* Global Search */}
-        <div className="hidden md:flex items-center relative ml-4">
-          <Search className="w-4 h-4 text-black/30 absolute left-3.5 pointer-events-none" />
+        <div className="hidden md:flex items-center relative ml-2">
+          <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 pointer-events-none" />
           <input
             id="nav-search-input"
             type="text"
-            placeholder="Search posts, hooks, channels..."
+            placeholder="Search personal hooks, drafts, topics..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-64 pl-9 pr-4 py-2 text-xs bg-zinc-50 border border-black/5 rounded-full text-black placeholder:text-black/40 focus:outline-none focus:border-black/20 focus:bg-white transition-all font-medium"
+            className="w-64 pl-9 pr-4 py-1.5 text-xs bg-zinc-900/90 border border-zinc-800 rounded-full text-white placeholder:text-zinc-500 focus:outline-none focus:border-pink-500/60 focus:ring-1 focus:ring-pink-500/30 transition-all font-medium"
           />
         </div>
       </div>
@@ -70,41 +75,41 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Integration Badges & Actions */}
       <div className="flex items-center gap-3">
         {/* Status Pills */}
-        <div className="hidden lg:flex items-center gap-1.5 bg-zinc-50 p-1 rounded-full border border-black/5 text-xs">
-          {/* LinkedIn Status */}
+        <div className="hidden lg:flex items-center gap-1.5 bg-zinc-900/80 p-1 rounded-full border border-zinc-800 text-xs">
+          {/* LinkedIn Personal Status */}
           <div 
             className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
-              linkedinAccount?.connected ? 'bg-white shadow-xs text-black border border-black/5' : 'text-black/40'
+              linkedinAccount?.connected ? 'bg-zinc-800 text-white border border-zinc-700' : 'text-zinc-500'
             }`}
-            title={linkedinAccount?.connected ? `LinkedIn: ${linkedinAccount.username}` : 'LinkedIn Disconnected'}
+            title={linkedinAccount?.connected ? `Personal Profile: ${linkedinAccount.username}` : 'LinkedIn Disconnected'}
           >
-            <Linkedin className="w-3 h-3" />
-            <span className="text-[11px]">LinkedIn</span>
-            {linkedinAccount?.connected && <Check className="w-3 h-3 text-black" />}
+            <Linkedin className="w-3 h-3 text-sky-400" />
+            <span className="text-[11px]">Personal Profile</span>
+            {linkedinAccount?.connected && <Check className="w-3 h-3 text-pink-400" />}
           </div>
 
-          {/* Instagram Status */}
+          {/* Instagram Personal Status */}
           <div 
             className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
-              instagramAccount?.connected ? 'bg-white shadow-xs text-black border border-black/5' : 'text-black/40'
+              instagramAccount?.connected ? 'bg-zinc-800 text-white border border-zinc-700' : 'text-zinc-500'
             }`}
-            title={instagramAccount?.connected ? `Instagram: ${instagramAccount.username}` : 'Instagram Disconnected'}
+            title={instagramAccount?.connected ? `Personal Creator: ${instagramAccount.username}` : 'Instagram Disconnected'}
           >
-            <Instagram className="w-3 h-3" />
-            <span className="text-[11px]">Instagram</span>
-            {instagramAccount?.connected && <Check className="w-3 h-3 text-black" />}
+            <Instagram className="w-3 h-3 text-pink-400" />
+            <span className="text-[11px]">Creator IG</span>
+            {instagramAccount?.connected && <Check className="w-3 h-3 text-pink-400" />}
           </div>
 
           {/* Sheets Status */}
           <div 
             className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
-              sheetsConfig.connected ? 'bg-white shadow-xs text-black border border-black/5' : 'text-black/40'
+              sheetsConfig.connected ? 'bg-zinc-800 text-white border border-zinc-700' : 'text-zinc-500'
             }`}
             title="Google Sheets Auto-Sync Active"
           >
-            <Table className="w-3 h-3" />
+            <Table className="w-3 h-3 text-emerald-400" />
             <span className="text-[11px]">Sheets Sync</span>
-            {sheetsConfig.connected && <Check className="w-3 h-3 text-black" />}
+            {sheetsConfig.connected && <Check className="w-3 h-3 text-violet-400" />}
           </div>
         </div>
 
@@ -112,20 +117,20 @@ export const Navbar: React.FC<NavbarProps> = ({
         <button
           id="btn-view-codebase"
           onClick={onOpenCodebase}
-          className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-black bg-zinc-50 hover:bg-zinc-100 border border-black/5 rounded-full transition-all"
+          className="flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold text-zinc-300 bg-zinc-900 hover:bg-zinc-800 hover:text-white border border-zinc-800 rounded-full transition-all"
         >
-          <Code2 className="w-3.5 h-3.5" />
+          <Code2 className="w-3.5 h-3.5 text-violet-400" />
           <span className="hidden sm:inline">Django Code</span>
         </button>
 
-        {/* Create Content Button */}
+        {/* Create Content Button with Pink/Violet Gradient */}
         <button
           id="btn-create-post-nav"
           onClick={onOpenCreate}
-          className="flex items-center gap-2 px-5 py-2.5 text-xs font-bold text-white bg-black hover:opacity-90 rounded-full shadow-xs transition-all active:scale-95"
+          className="flex items-center gap-2 px-5 py-2 text-xs font-bold text-white bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 rounded-full shadow-md shadow-pink-500/25 transition-all active:scale-95"
         >
           <Plus className="w-3.5 h-3.5" />
-          <span>+ Create Content</span>
+          <span>+ Create Post</span>
         </button>
       </div>
     </header>

@@ -1,6 +1,6 @@
 {
   "name": "Social Media Content Automation",
-  "description": "LinkedIn & Instagram content automation platform with AI post generation, multi-platform scheduling, live previews, Google Sheets sync, analytics, and full codebase architecture.",
+  "description": "Solo creator LinkedIn and Instagram automation platform with AI post drafting, Celery-backed scheduling, live previews, Google Sheets calendar sync, and reach analytics.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

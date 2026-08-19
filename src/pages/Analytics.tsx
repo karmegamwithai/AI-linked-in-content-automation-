@@ -8,7 +8,9 @@ import {
   MousePointerClick, 
   Calendar,
   Sparkles,
-  ArrowUpRight
+  ArrowUpRight,
+  Flame,
+  Zap
 } from 'lucide-react';
 import { 
   AreaChart, 
@@ -40,7 +42,7 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
   const totalComments = published.reduce((acc, p) => acc + (p.analytics?.comments || 0), 0);
   const totalShares = published.reduce((acc, p) => acc + (p.analytics?.shares || 0), 0);
 
-  // Time-series mock data
+  // Time-series reach data
   const reachTrendData = [
     { date: 'Aug 1', linkedin: 4200, instagram: 3100, total: 7300 },
     { date: 'Aug 4', linkedin: 5800, instagram: 4600, total: 10400 },
@@ -52,40 +54,47 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
   ];
 
   const platformDistribution = [
-    { name: 'LinkedIn', value: 58, color: '#000000' },
-    { name: 'Instagram', value: 42, color: '#a1a1aa' },
+    { name: 'Personal LinkedIn', value: 58, color: '#8b5cf6' },
+    { name: 'Creator Instagram', value: 42, color: '#ec4899' },
   ];
 
   const bestPostingTimes = [
-    { day: 'Mon', time: '09:00 AM', engagement: 'High (6.4%)', platform: 'LinkedIn' },
-    { day: 'Tue', time: '02:00 PM', engagement: 'Peak (8.1%)', platform: 'Instagram' },
-    { day: 'Wed', time: '11:30 AM', engagement: 'High (7.2%)', platform: 'LinkedIn' },
-    { day: 'Thu', time: '06:00 PM', engagement: 'Peak (8.9%)', platform: 'Instagram' },
-    { day: 'Fri', time: '08:30 AM', engagement: 'Moderate (5.5%)', platform: 'LinkedIn' },
+    { day: 'Mon', time: '09:00 AM', engagement: 'High (6.4%)', platform: 'Personal LinkedIn' },
+    { day: 'Tue', time: '02:00 PM', engagement: 'Peak (8.1%)', platform: 'Creator IG' },
+    { day: 'Wed', time: '11:30 AM', engagement: 'High (7.2%)', platform: 'Personal LinkedIn' },
+    { day: 'Thu', time: '06:00 PM', engagement: 'Peak (8.9%)', platform: 'Creator IG' },
+    { day: 'Fri', time: '08:30 AM', engagement: 'Moderate (5.5%)', platform: 'Personal LinkedIn' },
   ];
 
   return (
     <div id="page-analytics" className="space-y-6">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-zinc-50 border border-black/5">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-black tracking-tight">
-            Analytics & Channel Telemetry
-          </h1>
-          <p className="text-xs text-black/40 font-bold uppercase tracking-wider mt-0.5">
-            Cross-network reach, CTR benchmarks, and conversion tracking
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
+
+        <div className="z-10">
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+              Personal Brand Telemetry
+            </h1>
+            <span className="text-[10px] font-bold px-2.5 py-0.5 bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-pink-300 border border-pink-500/30 rounded-full">
+              Live Feed Metrics
+            </span>
+          </div>
+          <p className="text-xs text-zinc-400 font-medium mt-1">
+            Tracking individual impressions, audience conversion, and profile inbound activity
           </p>
         </div>
 
-        <div className="flex items-center bg-white p-1 rounded-full border border-black/5 text-xs font-semibold">
+        <div className="flex items-center bg-zinc-900 p-1 rounded-full border border-zinc-800 text-xs font-semibold z-10">
           {(['7d', '30d', '90d'] as const).map((r) => (
             <button
               key={r}
               onClick={() => setTimeRange(r)}
               className={`px-3.5 py-1.5 rounded-full uppercase transition-all ${
                 timeRange === r
-                  ? 'bg-black text-white font-bold'
-                  : 'text-black/50 hover:text-black'
+                  ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-sm'
+                  : 'text-zinc-400 hover:text-white'
               }`}
             >
               {r}
@@ -117,7 +126,7 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
           value="7.8%"
           change="+0.9%"
           isPositive={true}
-          subtitle="B2B High-Performance Tier"
+          subtitle="Creator Top Tier"
           icon={Sparkles}
         />
         <AnalyticsCard
@@ -125,7 +134,7 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
           value="482"
           change="+35.1%"
           isPositive={true}
-          subtitle="Inbound website referrals"
+          subtitle="Direct Inbound Connections"
           icon={MousePointerClick}
         />
       </div>
@@ -133,22 +142,22 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
       {/* Bento Grid: Charts & Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Main Reach Trend Area Chart (8 cols) */}
-        <div className="lg:col-span-8 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-black/5 space-y-4">
+        <div className="lg:col-span-8 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-bold text-black tracking-tight">Growth Trendline</h2>
-              <p className="text-xs text-black/40 font-bold uppercase tracking-wider mt-0.5">
-                Daily impression distribution across platforms
+              <h2 className="text-lg font-bold text-white tracking-tight">Reach Trendline</h2>
+              <p className="text-xs text-zinc-400 mt-0.5">
+                Daily organic impressions across your personal profiles
               </p>
             </div>
 
             <div className="flex items-center gap-3 text-xs font-bold">
-              <div className="flex items-center gap-1.5 text-black">
-                <span className="w-2.5 h-2.5 rounded-full bg-black" />
+              <div className="flex items-center gap-1.5 text-violet-400">
+                <span className="w-2.5 h-2.5 rounded-full bg-violet-500" />
                 <span>LinkedIn</span>
               </div>
-              <div className="flex items-center gap-1.5 text-black/60">
-                <span className="w-2.5 h-2.5 rounded-full bg-zinc-400" />
+              <div className="flex items-center gap-1.5 text-pink-400">
+                <span className="w-2.5 h-2.5 rounded-full bg-pink-500" />
                 <span>Instagram</span>
               </div>
             </div>
@@ -159,40 +168,40 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
               <AreaChart data={reachTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorLinkedin" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#000000" stopOpacity={0.2} />
-                    <stop offset="95%" stopColor="#000000" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0.0} />
                   </linearGradient>
                   <linearGradient id="colorInstagram" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#71717a" stopOpacity={0.2} />
-                    <stop offset="95%" stopColor="#71717a" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor="#ec4899" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#ec4899" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e4e4e7" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
                 <XAxis dataKey="date" stroke="#71717a" fontSize={11} tickLine={false} />
                 <YAxis stroke="#71717a" fontSize={11} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#ffffff',
-                    borderColor: '#e4e4e7',
+                    backgroundColor: '#09090b',
+                    borderColor: '#27272a',
                     borderRadius: '16px',
-                    color: '#000000',
+                    color: '#ffffff',
                     fontSize: '12px',
-                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                    boxShadow: '0 8px 16px -4px rgb(0 0 0 / 0.5)',
                   }}
                 />
-                <Area type="monotone" dataKey="linkedin" stroke="#000000" strokeWidth={2} fillOpacity={1} fill="url(#colorLinkedin)" />
-                <Area type="monotone" dataKey="instagram" stroke="#71717a" strokeWidth={2} fillOpacity={1} fill="url(#colorInstagram)" />
+                <Area type="monotone" dataKey="linkedin" stroke="#8b5cf6" strokeWidth={2.5} fillOpacity={1} fill="url(#colorLinkedin)" />
+                <Area type="monotone" dataKey="instagram" stroke="#ec4899" strokeWidth={2.5} fillOpacity={1} fill="url(#colorInstagram)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Platform Share Pie Bento Tile (4 cols) */}
-        <div className="lg:col-span-4 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-black/5 flex flex-col justify-between space-y-4">
+        <div className="lg:col-span-4 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 flex flex-col justify-between space-y-4">
           <div>
-            <h2 className="text-xl font-bold text-black tracking-tight">Channel Split</h2>
-            <p className="text-xs text-black/40 font-bold uppercase tracking-wider mt-0.5">
-              Impression market share
+            <h2 className="text-lg font-bold text-white tracking-tight">Channel Split</h2>
+            <p className="text-xs text-zinc-400 mt-0.5">
+              Personal audience share
             </p>
           </div>
 
@@ -214,52 +223,52 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#ffffff',
-                    borderColor: '#e4e4e7',
+                    backgroundColor: '#09090b',
+                    borderColor: '#27272a',
                     borderRadius: '16px',
                     fontSize: '12px',
-                    color: '#000000',
+                    color: '#ffffff',
                   }}
                 />
               </PieChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="space-y-2 pt-2 border-t border-black/5">
+          <div className="space-y-2 pt-2 border-t border-zinc-900">
             <div className="flex items-center justify-between text-xs">
-              <span className="flex items-center gap-2 text-black font-semibold">
-                <span className="w-2.5 h-2.5 rounded-full bg-black" /> LinkedIn
+              <span className="flex items-center gap-2 text-zinc-300 font-semibold">
+                <span className="w-2.5 h-2.5 rounded-full bg-violet-500" /> Personal LinkedIn
               </span>
-              <span className="font-bold text-black">58%</span>
+              <span className="font-bold text-white">58%</span>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="flex items-center gap-2 text-black/60 font-semibold">
-                <span className="w-2.5 h-2.5 rounded-full bg-zinc-400" /> Instagram
+              <span className="flex items-center gap-2 text-zinc-300 font-semibold">
+                <span className="w-2.5 h-2.5 rounded-full bg-pink-500" /> Creator IG
               </span>
-              <span className="font-bold text-black">42%</span>
+              <span className="font-bold text-white">42%</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Heatmap Bento Grid */}
-      <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-black/5 space-y-4">
+      <div className="p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4">
         <div>
-          <h2 className="text-xl font-bold text-black tracking-tight">AI Recommended Posting Windows</h2>
-          <p className="text-xs text-black/40 font-bold uppercase tracking-wider mt-0.5">
-            Calculated from algorithm velocity and follower active hours
+          <h2 className="text-lg font-bold text-white tracking-tight">Optimal Creator Dispatch Windows</h2>
+          <p className="text-xs text-zinc-400 mt-0.5">
+            AI calculated from follower active hours and algorithm feed velocity
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
           {bestPostingTimes.map((item, idx) => (
-            <div key={idx} className="p-4 rounded-2xl bg-white border border-black/5 space-y-2 text-center">
-              <span className="text-xs font-bold uppercase text-black/40">{item.day}</span>
-              <div className="text-lg font-black text-black">{item.time}</div>
-              <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-black text-white">
+            <div key={idx} className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-2 text-center">
+              <span className="text-xs font-bold uppercase text-zinc-500">{item.day}</span>
+              <div className="text-lg font-black text-white">{item.time}</div>
+              <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-pink-300 border border-pink-500/30">
                 {item.engagement}
               </span>
-              <p className="text-[10px] text-black/50 font-medium">{item.platform}</p>
+              <p className="text-[10px] text-zinc-400 font-medium">{item.platform}</p>
             </div>
           ))}
         </div>

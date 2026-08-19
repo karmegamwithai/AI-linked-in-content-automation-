@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
-import { Clock, Plus, Filter, Calendar, Sparkles } from 'lucide-react';
+import React from 'react';
+import { 
+  CalendarClock, 
+  Plus, 
+  Clock, 
+  Sparkles, 
+  Filter, 
+  ArrowRight,
+  Zap
+} from 'lucide-react';
 import { Post } from '../types';
 import { PostCard } from '../components/PostCard';
 
@@ -7,7 +15,7 @@ interface ScheduledPostsProps {
   posts: Post[];
   onEditPost: (post: Post) => void;
   onDeletePost: (id: string) => void;
-  onPublishNow: (post: Post) => void;
+  onPublishNow: (id: string) => void;
   onOpenCreate: () => void;
 }
 
@@ -18,61 +26,39 @@ export const ScheduledPosts: React.FC<ScheduledPostsProps> = ({
   onPublishNow,
   onOpenCreate,
 }) => {
-  const [filterPlatform, setFilterPlatform] = useState<'all' | 'linkedin' | 'instagram'>('all');
-
-  const scheduled = posts
-    .filter((p) => p.status === 'scheduled')
-    .filter((p) => (filterPlatform === 'all' ? true : p.platforms.includes(filterPlatform)))
-    .sort((a, b) => new Date(a.scheduledTime || 0).getTime() - new Date(b.scheduledTime || 0).getTime());
+  const scheduled = posts.filter((p) => p.status === 'scheduled');
 
   return (
     <div id="page-scheduled-posts" className="space-y-6">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-zinc-50 border border-black/5">
-        <div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
+
+        <div className="z-10">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl md:text-3xl font-bold text-black tracking-tight">
-              Scheduled Queue
+            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+              Personal Dispatch Queue
             </h1>
-            <span className="text-xs font-bold px-3 py-1 bg-black text-white rounded-full">
-              {scheduled.length} Queued
+            <span className="text-[10px] font-bold px-2.5 py-0.5 bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-pink-300 border border-pink-500/30 rounded-full">
+              {scheduled.length} Scheduled
             </span>
           </div>
-          <p className="text-xs text-black/40 font-bold uppercase tracking-wider mt-0.5">
-            Celery async workers handle automated payload dispatch to LinkedIn & Instagram
+          <p className="text-xs text-zinc-400 font-medium mt-1">
+            Automated personal LinkedIn & Instagram posts scheduled for background release
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
-          {/* Platform Filters */}
-          <div className="flex items-center bg-white p-1 rounded-full border border-black/5 text-xs font-semibold">
-            {(['all', 'linkedin', 'instagram'] as const).map((p) => (
-              <button
-                key={p}
-                onClick={() => setFilterPlatform(p)}
-                className={`px-3.5 py-1.5 rounded-full capitalize transition-all ${
-                  filterPlatform === p
-                    ? 'bg-black text-white font-bold'
-                    : 'text-black/50 hover:text-black'
-                }`}
-              >
-                {p}
-              </button>
-            ))}
-          </div>
-
-          <button
-            id="btn-schedule-new-post"
-            onClick={onOpenCreate}
-            className="flex items-center gap-2 px-5 py-2.5 bg-black text-white text-xs font-bold rounded-full hover:opacity-90 transition-all shadow-xs active:scale-95"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>+ Schedule Post</span>
-          </button>
-        </div>
+        <button
+          id="btn-create-scheduled"
+          onClick={onOpenCreate}
+          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 text-white text-xs font-bold rounded-full shadow-md shadow-pink-500/20 transition-all z-10 active:scale-95"
+        >
+          <Plus className="w-3.5 h-3.5" />
+          <span>+ Schedule Story</span>
+        </button>
       </div>
 
-      {/* Grid of Scheduled Posts */}
+      {/* Grid of Posts */}
       {scheduled.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {scheduled.map((post) => (
@@ -86,17 +72,19 @@ export const ScheduledPosts: React.FC<ScheduledPostsProps> = ({
           ))}
         </div>
       ) : (
-        <div className="p-12 rounded-3xl bg-zinc-50 border border-black/5 text-center space-y-3">
-          <Clock className="w-10 h-10 mx-auto text-black/30" />
-          <h3 className="text-base font-bold text-black">No scheduled posts</h3>
-          <p className="text-xs text-black/50 max-w-md mx-auto">
-            Your automated queue is currently empty. Craft a new post with Gemini AI or sync directly from your Google Sheets pipeline.
+        <div className="p-12 text-center rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4">
+          <div className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mx-auto text-pink-400">
+            <CalendarClock className="w-6 h-6" />
+          </div>
+          <h3 className="text-lg font-bold text-white">No personal posts scheduled yet</h3>
+          <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+            Queue your stories, technical learnings, and reflections to maintain an active personal brand presence.
           </p>
           <button
             onClick={onOpenCreate}
-            className="mt-2 px-6 py-2.5 bg-black text-white text-xs font-bold rounded-full hover:opacity-90"
+            className="px-6 py-2.5 bg-gradient-to-r from-pink-500 to-violet-600 text-white text-xs font-bold rounded-full shadow-md shadow-pink-500/20"
           >
-            + Create Next Post
+            + Create Your First Post
           </button>
         </div>
       )}
