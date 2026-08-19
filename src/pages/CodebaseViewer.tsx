@@ -486,22 +486,22 @@ export const CodebaseViewer: React.FC = () => {
   return (
     <div id="page-codebase-viewer" className="space-y-6">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 relative overflow-hidden shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 relative overflow-hidden shadow-xs">
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
 
         <div className="z-10">
-          <h1 className="text-2xl md:text-3xl font-black text-zinc-900 tracking-tight flex items-center gap-2.5">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-zinc-900 tracking-tight flex items-center gap-2.5">
             <span>Django Backend & Dispatch Engine</span>
           </h1>
-          <p className="text-xs text-zinc-500 font-medium mt-1">
+          <p className="text-[11px] sm:text-xs text-zinc-500 font-medium mt-1">
             Browse, inspect, and copy complete Django apps, Celery workers, and Sheets services
           </p>
         </div>
 
-        <div className="flex items-center gap-2 z-10">
+        <div className="flex items-center gap-2 z-10 self-start sm:self-auto">
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 text-white text-xs font-bold transition-all shadow-md shadow-pink-500/20 active:scale-95"
+            className="flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 text-white text-xs font-bold transition-all shadow-md shadow-pink-500/20 active:scale-95 min-h-[40px]"
           >
             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copied ? 'Copied Code' : 'Copy File Content'}</span>
@@ -510,10 +510,10 @@ export const CodebaseViewer: React.FC = () => {
       </div>
 
       {/* Category Tabs */}
-      <div className="flex items-center gap-1 bg-zinc-50 p-1 rounded-full border border-zinc-200 w-fit text-xs font-semibold shadow-2xs">
+      <div className="flex items-center gap-1 bg-zinc-50 p-1 rounded-full border border-zinc-200 w-full sm:w-fit text-xs font-semibold shadow-2xs overflow-x-auto">
         <button
           onClick={() => setFilterCategory('all')}
-          className={`px-3.5 py-1.5 rounded-full transition-all ${
+          className={`px-3 sm:px-3.5 py-1.5 rounded-full transition-all whitespace-nowrap min-h-[36px] ${
             filterCategory === 'all'
               ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs'
               : 'text-zinc-600 hover:text-zinc-900'
@@ -523,7 +523,7 @@ export const CodebaseViewer: React.FC = () => {
         </button>
         <button
           onClick={() => setFilterCategory('django')}
-          className={`px-3.5 py-1.5 rounded-full transition-all ${
+          className={`px-3 sm:px-3.5 py-1.5 rounded-full transition-all whitespace-nowrap min-h-[36px] ${
             filterCategory === 'django'
               ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs'
               : 'text-zinc-600 hover:text-zinc-900'
@@ -533,7 +533,7 @@ export const CodebaseViewer: React.FC = () => {
         </button>
         <button
           onClick={() => setFilterCategory('sheets')}
-          className={`px-3.5 py-1.5 rounded-full transition-all ${
+          className={`px-3 sm:px-3.5 py-1.5 rounded-full transition-all whitespace-nowrap min-h-[36px] ${
             filterCategory === 'sheets'
               ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs'
               : 'text-zinc-600 hover:text-zinc-900'
@@ -543,7 +543,7 @@ export const CodebaseViewer: React.FC = () => {
         </button>
         <button
           onClick={() => setFilterCategory('docs')}
-          className={`px-3.5 py-1.5 rounded-full transition-all ${
+          className={`px-3 sm:px-3.5 py-1.5 rounded-full transition-all whitespace-nowrap min-h-[36px] ${
             filterCategory === 'docs'
               ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs'
               : 'text-zinc-600 hover:text-zinc-900'
@@ -554,21 +554,21 @@ export const CodebaseViewer: React.FC = () => {
       </div>
 
       {/* 2-Column Code Explorer */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
         {/* Left: File Tree List (4 cols) */}
-        <div className="lg:col-span-4 p-5 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-2 shadow-xs">
+        <div className="lg:col-span-4 p-4 sm:p-5 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-2 shadow-xs">
           <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 block mb-2 px-2">
             Project Files
           </span>
 
-          <div className="space-y-1">
+          <div className="space-y-1 max-h-48 sm:max-h-64 lg:max-h-[600px] overflow-y-auto pr-1">
             {filteredFiles.map((file) => {
               const isSelected = selectedFile.path === file.path;
               return (
                 <button
                   key={file.path}
                   onClick={() => setSelectedFile(file)}
-                  className={`w-full text-left px-3.5 py-2.5 rounded-2xl text-xs font-mono transition-all flex items-center justify-between group ${
+                  className={`w-full text-left px-3.5 py-2.5 rounded-2xl text-xs font-mono transition-all flex items-center justify-between group min-h-[40px] ${
                     isSelected
                       ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs shadow-pink-500/20'
                       : 'text-zinc-700 hover:text-zinc-900 hover:bg-white'
@@ -578,7 +578,7 @@ export const CodebaseViewer: React.FC = () => {
                     <FileCode className={`w-3.5 h-3.5 shrink-0 ${isSelected ? 'text-white' : 'text-zinc-400'}`} />
                     <span className="truncate">{file.path}</span>
                   </div>
-                  <span className={`text-[9px] uppercase px-2 py-0.5 rounded-full font-bold ${
+                  <span className={`text-[9px] uppercase px-2 py-0.5 rounded-full font-bold shrink-0 ml-2 ${
                     isSelected ? 'bg-white/20 text-white' : 'bg-white text-zinc-600 border border-zinc-200'
                   }`}>
                     {file.language}
@@ -592,21 +592,21 @@ export const CodebaseViewer: React.FC = () => {
         {/* Right: Code Viewer (8 cols) */}
         <div className="lg:col-span-8 rounded-3xl bg-zinc-50 border border-zinc-200 overflow-hidden shadow-xs">
           {/* File Top Meta */}
-          <div className="flex items-center justify-between px-6 py-4 bg-white border-b border-zinc-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 bg-white border-b border-zinc-200 gap-2">
             <div>
               <p className="font-mono text-xs font-bold text-zinc-900 flex items-center gap-2">
-                <span>{selectedFile.path}</span>
+                <span className="break-all">{selectedFile.path}</span>
               </p>
               <p className="text-[11px] text-zinc-500 mt-0.5">{selectedFile.description}</p>
             </div>
-            <span className="text-[10px] font-mono uppercase bg-zinc-100 text-pink-700 px-2.5 py-1 rounded-full font-bold border border-zinc-200">
+            <span className="text-[10px] font-mono uppercase bg-zinc-100 text-pink-700 px-2.5 py-1 rounded-full font-bold border border-zinc-200 self-start sm:self-auto shrink-0">
               {selectedFile.language}
             </span>
           </div>
 
           {/* Code Body */}
-          <div className="p-6 bg-zinc-950 font-mono text-xs overflow-x-auto max-h-[560px]">
-            <pre className="text-zinc-200 leading-relaxed">
+          <div className="p-4 sm:p-6 bg-zinc-950 font-mono text-xs overflow-x-auto max-h-[500px] sm:max-h-[560px]">
+            <pre className="text-zinc-200 leading-relaxed text-[11px] sm:text-xs">
               <code>{selectedFile.content}</code>
             </pre>
           </div>

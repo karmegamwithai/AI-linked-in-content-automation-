@@ -68,9 +68,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
   ];
 
   return (
-    <div id="page-dashboard" className="space-y-6">
+    <div id="page-dashboard" className="space-y-4 sm:space-y-6">
       {/* Header Bento Tile */}
-      <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden shadow-xs">
+      <div className="p-4 sm:p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 relative overflow-hidden shadow-xs">
         <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
 
         <div className="space-y-1 z-10">
@@ -80,10 +80,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <span>Solo Creator Engine</span>
             </span>
           </div>
-          <h1 className="text-2xl md:text-4xl font-black text-zinc-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl md:text-4xl font-black text-zinc-900 tracking-tight">
             Personal Creator Studio
           </h1>
-          <p className="text-xs text-zinc-500 font-medium">
+          <p className="text-[11px] sm:text-xs text-zinc-500 font-medium">
             Automating personal LinkedIn storytelling & Instagram creator posts with zero manual overhead
           </p>
         </div>
@@ -98,12 +98,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
             placeholder="Type a personal lesson or idea..."
             value={quickIdea}
             onChange={(e) => setQuickIdea(e.target.value)}
-            className="px-4 py-2 text-xs bg-transparent text-zinc-900 placeholder:text-zinc-400 focus:outline-none w-full md:w-64 font-medium"
+            className="px-3 sm:px-4 py-2 text-xs bg-transparent text-zinc-900 placeholder:text-zinc-400 focus:outline-none flex-1 md:w-64 font-medium"
           />
           <button
             type="submit"
             disabled={!quickIdea.trim()}
-            className="flex items-center gap-1.5 px-5 py-2 text-xs font-bold text-white bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 rounded-full shadow-md shadow-pink-500/20 disabled:opacity-40 transition-all shrink-0 active:scale-95"
+            className="flex items-center gap-1.5 px-4 sm:px-5 py-2 text-xs font-bold text-white bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 rounded-full shadow-md shadow-pink-500/20 disabled:opacity-40 transition-all shrink-0 active:scale-95 min-h-[38px]"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Draft</span>
@@ -112,7 +112,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* KPI Bento Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         <AnalyticsCard
           title="Audience Reach"
           value={totalImpressions > 0 ? `${(totalImpressions / 1000).toFixed(1)}k` : '30.7k'}
@@ -148,7 +148,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Main Bento Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
         {/* Left Bento Column: Next Post & Queue (8 cols) */}
         <div className="lg:col-span-8 space-y-6">
           {/* Next Up Hero Card */}

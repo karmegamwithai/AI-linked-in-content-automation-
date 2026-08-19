@@ -67,31 +67,31 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
   ];
 
   return (
-    <div id="page-analytics" className="space-y-6">
+    <div id="page-analytics" className="space-y-4 sm:space-y-6">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 relative overflow-hidden shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 relative overflow-hidden shadow-xs">
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
 
         <div className="z-10">
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl md:text-3xl font-black text-zinc-900 tracking-tight">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-zinc-900 tracking-tight">
               Personal Brand Telemetry
             </h1>
             <span className="text-[10px] font-bold px-2.5 py-0.5 bg-pink-50 text-pink-700 border border-pink-200 rounded-full">
               Live Feed Metrics
             </span>
           </div>
-          <p className="text-xs text-zinc-500 font-medium mt-1">
+          <p className="text-[11px] sm:text-xs text-zinc-500 font-medium mt-1">
             Tracking individual impressions, audience conversion, and profile inbound activity
           </p>
         </div>
 
-        <div className="flex items-center bg-white p-1 rounded-full border border-zinc-200 text-xs font-semibold z-10 shadow-2xs">
+        <div className="flex items-center bg-white p-1 rounded-full border border-zinc-200 text-xs font-semibold z-10 shadow-2xs self-start sm:self-auto">
           {(['7d', '30d', '90d'] as const).map((r) => (
             <button
               key={r}
               onClick={() => setTimeRange(r)}
-              className={`px-3.5 py-1.5 rounded-full uppercase transition-all ${
+              className={`px-3 sm:px-3.5 py-1.5 rounded-full uppercase transition-all min-h-[36px] ${
                 timeRange === r
                   ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs'
                   : 'text-zinc-500 hover:text-zinc-900'
@@ -104,7 +104,7 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
       </div>
 
       {/* KPI Bento Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         <AnalyticsCard
           title="Reach Growth"
           value={totalImpressions > 0 ? `${(totalImpressions / 1000).toFixed(1)}k` : '30.7k'}
@@ -140,12 +140,12 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
       </div>
 
       {/* Bento Grid: Charts & Breakdown */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
         {/* Main Reach Trend Area Chart (8 cols) */}
-        <div className="lg:col-span-8 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 shadow-xs">
-          <div className="flex items-center justify-between">
+        <div className="lg:col-span-8 p-4 sm:p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <h2 className="text-lg font-bold text-zinc-900 tracking-tight">Reach Trendline</h2>
+              <h2 className="text-base sm:text-lg font-bold text-zinc-900 tracking-tight">Reach Trendline</h2>
               <p className="text-xs text-zinc-500 mt-0.5">
                 Daily organic impressions across your personal profiles
               </p>
@@ -163,7 +163,7 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
             </div>
           </div>
 
-          <div className="h-72 w-full pt-4">
+          <div className="h-64 sm:h-72 w-full pt-4">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={reachTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
@@ -197,9 +197,9 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
         </div>
 
         {/* Platform Share Pie Bento Tile (4 cols) */}
-        <div className="lg:col-span-4 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 flex flex-col justify-between space-y-4 shadow-xs">
+        <div className="lg:col-span-4 p-4 sm:p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 flex flex-col justify-between space-y-4 shadow-xs">
           <div>
-            <h2 className="text-lg font-bold text-zinc-900 tracking-tight">Channel Split</h2>
+            <h2 className="text-base sm:text-lg font-bold text-zinc-900 tracking-tight">Channel Split</h2>
             <p className="text-xs text-zinc-500 mt-0.5">
               Personal audience share
             </p>
@@ -253,23 +253,23 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
       </div>
 
       {/* Heatmap Bento Grid */}
-      <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 shadow-xs">
+      <div className="p-4 sm:p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 shadow-xs">
         <div>
-          <h2 className="text-lg font-bold text-zinc-900 tracking-tight">Optimal Creator Dispatch Windows</h2>
+          <h2 className="text-base sm:text-lg font-bold text-zinc-900 tracking-tight">Optimal Creator Dispatch Windows</h2>
           <p className="text-xs text-zinc-500 mt-0.5">
             AI calculated from follower active hours and algorithm feed velocity
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5 sm:gap-3">
           {bestPostingTimes.map((item, idx) => (
-            <div key={idx} className="p-4 rounded-2xl bg-white border border-zinc-200 space-y-2 text-center shadow-2xs">
-              <span className="text-xs font-bold uppercase text-zinc-400">{item.day}</span>
-              <div className="text-lg font-black text-zinc-900">{item.time}</div>
-              <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-pink-50 text-pink-700 border border-pink-200">
+            <div key={idx} className="p-3 sm:p-4 rounded-2xl bg-white border border-zinc-200 space-y-1.5 sm:space-y-2 text-center shadow-2xs">
+              <span className="text-[10px] sm:text-xs font-bold uppercase text-zinc-400">{item.day}</span>
+              <div className="text-sm sm:text-lg font-black text-zinc-900">{item.time}</div>
+              <span className="inline-block text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full bg-pink-50 text-pink-700 border border-pink-200 truncate max-w-full">
                 {item.engagement}
               </span>
-              <p className="text-[10px] text-zinc-500 font-medium">{item.platform}</p>
+              <p className="text-[9px] sm:text-[10px] text-zinc-500 font-medium truncate">{item.platform}</p>
             </div>
           ))}
         </div>

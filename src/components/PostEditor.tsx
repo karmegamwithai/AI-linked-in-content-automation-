@@ -121,21 +121,21 @@ export const PostEditor: React.FC<PostEditorProps> = ({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       {/* Left Column: Editor & AI Controls (7 cols) */}
-      <div className="lg:col-span-7 space-y-6">
+      <div className="lg:col-span-7 space-y-4 sm:space-y-6">
         {/* AI Crafter Bento Card with Pink/Violet Accent */}
-        <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-5 relative overflow-hidden shadow-xs">
+        <div className="p-4 sm:p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 sm:space-y-5 relative overflow-hidden shadow-xs">
           <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
 
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-pink-500 text-white flex items-center justify-center shadow-md shadow-pink-500/20">
+              <div className="w-8 sm:w-9 h-8 sm:h-9 rounded-full bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-pink-500 text-white flex items-center justify-center shadow-md shadow-pink-500/20 shrink-0">
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-zinc-900 tracking-tight flex items-center gap-2">
+                <h3 className="text-sm sm:text-base font-bold text-zinc-900 tracking-tight flex items-center gap-2">
                   <span>Solo Creator AI Crafter</span>
                 </h3>
-                <p className="text-[10px] text-pink-600 font-bold uppercase tracking-wider">
+                <p className="text-[9px] sm:text-[10px] text-pink-600 font-bold uppercase tracking-wider">
                   Tuned for personal storytelling & audience connection
                 </p>
               </div>
@@ -144,7 +144,7 @@ export const PostEditor: React.FC<PostEditorProps> = ({
             <button
               type="button"
               onClick={() => setShowAIOptions(!showAIOptions)}
-              className="text-xs font-bold px-4 py-1.5 border border-zinc-200 hover:border-zinc-300 rounded-full bg-white transition-all text-zinc-700 hover:text-zinc-900 flex items-center gap-1.5 shadow-2xs"
+              className="text-xs font-bold px-3.5 py-1.5 border border-zinc-200 hover:border-zinc-300 rounded-full bg-white transition-all text-zinc-700 hover:text-zinc-900 flex items-center gap-1.5 shadow-2xs self-start sm:self-auto min-h-[36px]"
             >
               <Sliders className="w-3 h-3 text-pink-500" />
               <span>{showAIOptions ? 'Simple Mode' : 'Creator Persona'}</span>
@@ -161,14 +161,14 @@ export const PostEditor: React.FC<PostEditorProps> = ({
                 setAiTopic(e.target.value);
                 onChange({ title: e.target.value });
               }}
-              className="flex-1 px-4 py-2.5 bg-white border border-zinc-200 rounded-full text-xs font-medium text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500/30 transition-all"
+              className="flex-1 px-4 py-2.5 bg-white border border-zinc-200 rounded-full text-xs font-medium text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500/30 transition-all min-h-[44px]"
             />
             <button
               type="button"
               id="btn-trigger-gemini-generate"
               onClick={handleAIGenerate}
               disabled={isGenerating || !aiTopic}
-              className="flex items-center justify-center gap-2 px-6 py-2.5 bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 text-white text-xs font-bold rounded-full transition-all disabled:opacity-40 shrink-0 active:scale-95 shadow-md shadow-pink-500/20"
+              className="flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 text-white text-xs font-bold rounded-full transition-all disabled:opacity-40 shrink-0 active:scale-95 shadow-md shadow-pink-500/20 min-h-[44px]"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isGenerating ? 'animate-spin' : ''}`} />
               <span>{isGenerating ? 'Crafting...' : 'Generate with AI'}</span>
@@ -176,18 +176,18 @@ export const PostEditor: React.FC<PostEditorProps> = ({
           </div>
 
           {showAIOptions && (
-            <div className="p-4 bg-white rounded-2xl border border-zinc-200 space-y-3 text-xs shadow-2xs animate-in fade-in duration-200">
+            <div className="p-3 sm:p-4 bg-white rounded-2xl border border-zinc-200 space-y-3 text-xs shadow-2xs animate-in fade-in duration-200">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2">
                   Personal Voice & Tone
                 </label>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {creatorTones.map((t) => (
                     <button
                       key={t.id}
                       type="button"
                       onClick={() => setAiTone(t.id)}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                      className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all min-h-[36px] ${
                         aiTone === t.id
                           ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs shadow-pink-500/20'
                           : 'bg-zinc-50 border border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:border-zinc-300'
@@ -203,15 +203,15 @@ export const PostEditor: React.FC<PostEditorProps> = ({
         </div>
 
         {/* Content Crafting Box */}
-        <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-5 shadow-xs">
+        <div className="p-4 sm:p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 sm:space-y-5 shadow-xs">
           {/* Channel Tabs with Pink/Violet Gradient */}
-          <div className="flex items-center justify-between border-b border-zinc-200 pb-3">
-            <div className="flex items-center gap-1.5 bg-white p-1 rounded-full border border-zinc-200 shadow-2xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200 pb-3">
+            <div className="flex items-center gap-1.5 bg-white p-1 rounded-full border border-zinc-200 shadow-2xs overflow-x-auto">
               <button
                 type="button"
                 id="tab-edit-linkedin"
                 onClick={() => setActiveTab('linkedin')}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap min-h-[36px] ${
                   activeTab === 'linkedin'
                     ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white shadow-xs'
                     : 'text-zinc-600 hover:text-zinc-900'
@@ -225,7 +225,7 @@ export const PostEditor: React.FC<PostEditorProps> = ({
                 type="button"
                 id="tab-edit-instagram"
                 onClick={() => setActiveTab('instagram')}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap min-h-[36px] ${
                   activeTab === 'instagram'
                     ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white shadow-xs'
                     : 'text-zinc-600 hover:text-zinc-900'
@@ -236,11 +236,11 @@ export const PostEditor: React.FC<PostEditorProps> = ({
               </button>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 self-end sm:self-auto">
               <button
                 type="button"
                 onClick={handleCopyCurrent}
-                className="p-2 rounded-full bg-white hover:bg-zinc-100 border border-zinc-200 text-zinc-600 hover:text-zinc-900 text-xs flex items-center gap-1 transition-all shadow-2xs"
+                className="p-2 rounded-full bg-white hover:bg-zinc-100 border border-zinc-200 text-zinc-600 hover:text-zinc-900 text-xs flex items-center gap-1 transition-all shadow-2xs min-w-[36px] min-h-[36px] justify-center"
                 title="Copy current channel text"
               >
                 {copied ? <Check className="w-3.5 h-3.5 text-pink-600" /> : <Copy className="w-3.5 h-3.5" />}
@@ -251,7 +251,7 @@ export const PostEditor: React.FC<PostEditorProps> = ({
                 id="btn-audit-post-quality"
                 onClick={handleAudit}
                 disabled={isAuditing}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 bg-white hover:bg-zinc-100 border border-zinc-200 rounded-full text-zinc-700 hover:text-zinc-900 text-xs font-bold transition-all shadow-2xs"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 bg-white hover:bg-zinc-100 border border-zinc-200 rounded-full text-zinc-700 hover:text-zinc-900 text-xs font-bold transition-all shadow-2xs min-h-[36px]"
               >
                 <CheckCircle2 className="w-3.5 h-3.5 text-violet-600" />
                 <span>{isAuditing ? 'Auditing...' : 'Quality Audit'}</span>

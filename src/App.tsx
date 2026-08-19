@@ -11,6 +11,7 @@ import {
 import { Post, ConnectedAccount, GoogleSheetsConfig } from './types';
 import { Navbar } from './components/Navbar';
 import { Sidebar, PageId } from './components/Sidebar';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import { Dashboard } from './pages/Dashboard';
 import { CreatePost } from './pages/CreatePost';
 import { ScheduledPosts } from './pages/ScheduledPosts';
@@ -28,6 +29,7 @@ export default function App() {
   const [sheetsConfig, setSheetsConfig] = useState<GoogleSheetsConfig>(getStoredSheetsConfig());
   const [editingPost, setEditingPost] = useState<Partial<Post> | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Initial load from storage
   useEffect(() => {
@@ -189,11 +191,12 @@ export default function App() {
         onOpenCodebase={() => setCurrentPage('codebase')}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
+        onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)}
       />
 
       {/* Main Container Layout */}
-      <div className="flex bg-white">
-        {/* Left Sidebar */}
+      <div className="flex bg-white min-h-[calc(100vh-65px)]">
+        {/* Left Sidebar (Desktop persistent + Mobile slide-in drawer) */}
         <Sidebar
           currentPage={currentPage}
           onSelectPage={(page) => {
@@ -201,10 +204,12 @@ export default function App() {
             setCurrentPage(page);
           }}
           counts={counts}
+          isOpen={mobileMenuOpen}
+          onClose={() => setMobileMenuOpen(false)}
         />
 
-        {/* Dynamic Page Content */}
-        <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto overflow-y-auto min-h-[calc(100vh-65px)] bg-white">
+        {/* Dynamic Page Content with mobile-safe padding */}
+        <main className="flex-1 p-4 sm:p-6 md:p-8 lg:p-10 max-w-7xl mx-auto overflow-y-auto pb-24 lg:pb-10 bg-white w-full">
           {currentPage === 'dashboard' && (
             <Dashboard
               posts={filteredPosts}
@@ -298,6 +303,17 @@ export default function App() {
           )}
         </main>
       </div>
+
+      {/* Mobile Floating Bottom Navigation */}
+      <MobileBottomNav
+        currentPage={currentPage}
+        onSelectPage={(page) => {
+          if (page === 'create') setEditingPost(null);
+          setCurrentPage(page);
+        }}
+        onOpenMenu={() => setMobileMenuOpen(true)}
+        scheduledCount={counts.scheduled}
+      />
     </div>
   );
 }
