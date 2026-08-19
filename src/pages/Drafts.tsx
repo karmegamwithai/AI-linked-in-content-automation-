@@ -28,19 +28,19 @@ export const Drafts: React.FC<DraftsProps> = ({
   return (
     <div id="page-drafts" className="space-y-6">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 relative overflow-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 relative overflow-hidden shadow-xs">
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
 
         <div className="z-10">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-black text-zinc-900 tracking-tight">
               Personal Drafts & Idea Bank
             </h1>
-            <span className="text-[10px] font-bold px-2.5 py-0.5 bg-zinc-800 text-zinc-300 rounded-full border border-zinc-700">
+            <span className="text-[10px] font-bold px-2.5 py-0.5 bg-zinc-100 text-zinc-700 rounded-full border border-zinc-200">
               {drafts.length} Unfinished Ideas
             </span>
           </div>
-          <p className="text-xs text-zinc-400 font-medium mt-1">
+          <p className="text-xs text-zinc-500 font-medium mt-1">
             Work-in-progress thoughts, unrefined reflections, and raw outlines
           </p>
         </div>
@@ -69,12 +69,12 @@ export const Drafts: React.FC<DraftsProps> = ({
           ))}
         </div>
       ) : (
-        <div className="p-12 text-center rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4">
-          <div className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mx-auto text-pink-400">
+        <div className="p-12 text-center rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 shadow-xs">
+          <div className="w-12 h-12 rounded-full bg-white border border-zinc-200 flex items-center justify-center mx-auto text-pink-600 shadow-2xs">
             <FileText className="w-6 h-6" />
           </div>
-          <h3 className="text-lg font-bold text-white">No drafts in your bank</h3>
-          <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+          <h3 className="text-lg font-bold text-zinc-900">No drafts in your bank</h3>
+          <p className="text-xs text-zinc-500 max-w-sm mx-auto">
             Jot down loose thoughts or let Gemini AI draft a personal hook that you can finish later.
           </p>
           <button

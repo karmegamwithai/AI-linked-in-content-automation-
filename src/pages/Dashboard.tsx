@@ -70,20 +70,20 @@ export const Dashboard: React.FC<DashboardProps> = ({
   return (
     <div id="page-dashboard" className="space-y-6">
       {/* Header Bento Tile */}
-      <div className="p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
+      <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden shadow-xs">
         <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
 
         <div className="space-y-1 z-10">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-pink-300 border border-pink-500/30 flex items-center gap-1">
-              <Zap className="w-3 h-3 text-pink-400" />
+            <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-gradient-to-r from-pink-500/10 to-violet-500/10 text-pink-700 border border-pink-500/20 flex items-center gap-1">
+              <Zap className="w-3 h-3 text-pink-600" />
               <span>Solo Creator Engine</span>
             </span>
           </div>
-          <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight">
+          <h1 className="text-2xl md:text-4xl font-black text-zinc-900 tracking-tight">
             Personal Creator Studio
           </h1>
-          <p className="text-xs text-zinc-400 font-medium">
+          <p className="text-xs text-zinc-500 font-medium">
             Automating personal LinkedIn storytelling & Instagram creator posts with zero manual overhead
           </p>
         </div>
@@ -91,14 +91,14 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Quick Idea Input with Gradient Action */}
         <form
           onSubmit={handleQuickCreateSubmit}
-          className="flex items-center gap-2 bg-zinc-900/90 p-1.5 rounded-full border border-zinc-800 focus-within:border-pink-500/60 focus-within:ring-1 focus-within:ring-pink-500/30 transition-all z-10 w-full md:w-auto"
+          className="flex items-center gap-2 bg-white p-1.5 rounded-full border border-zinc-200 focus-within:border-pink-500 focus-within:ring-1 focus-within:ring-pink-500/30 transition-all z-10 w-full md:w-auto shadow-2xs"
         >
           <input
             type="text"
             placeholder="Type a personal lesson or idea..."
             value={quickIdea}
             onChange={(e) => setQuickIdea(e.target.value)}
-            className="px-4 py-2 text-xs bg-transparent text-white placeholder:text-zinc-500 focus:outline-none w-full md:w-64 font-medium"
+            className="px-4 py-2 text-xs bg-transparent text-zinc-900 placeholder:text-zinc-400 focus:outline-none w-full md:w-64 font-medium"
           />
           <button
             type="submit"
@@ -153,32 +153,32 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <div className="lg:col-span-8 space-y-6">
           {/* Next Up Hero Card */}
           {nextScheduled ? (
-            <div className="p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4 relative overflow-hidden group">
+            <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 relative overflow-hidden group shadow-xs">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
 
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-violet-950/40 text-violet-300 border border-violet-800/40 flex items-center gap-1.5">
-                  <Clock className="w-3 h-3 text-violet-400" />
+                <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 flex items-center gap-1.5">
+                  <Clock className="w-3 h-3 text-violet-600" />
                   <span>Next Personal Post In Queue</span>
                 </span>
-                <span className="text-xs font-mono text-zinc-400">
+                <span className="text-xs font-mono text-zinc-500">
                   {nextScheduled.scheduledTime ? new Date(nextScheduled.scheduledTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }) : 'Soon'}
                 </span>
               </div>
 
               <div className="space-y-2">
-                <h3 className="text-xl font-bold text-white tracking-tight">
+                <h3 className="text-xl font-bold text-zinc-900 tracking-tight">
                   {nextScheduled.title}
                 </h3>
-                <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2">
+                <p className="text-xs text-zinc-600 leading-relaxed line-clamp-2">
                   {nextScheduled.contentLinkedin || nextScheduled.contentInstagram}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-zinc-900 flex items-center justify-between">
+              <div className="pt-3 border-t border-zinc-200 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   {nextScheduled.platforms.map((pl) => (
-                    <span key={pl} className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300">
+                    <span key={pl} className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-white border border-zinc-200 text-zinc-700 shadow-2xs">
                       {pl}
                     </span>
                   ))}
@@ -187,13 +187,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => onEditPost(nextScheduled)}
-                    className="text-xs font-bold px-4 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition-all"
+                    className="text-xs font-bold px-4 py-1.5 rounded-full bg-white hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 border border-zinc-200 transition-all shadow-2xs"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => onPublishNow(nextScheduled.id)}
-                    className="text-xs font-bold px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 text-white shadow-sm shadow-pink-500/20 active:scale-95 transition-all"
+                    className="text-xs font-bold px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-400 hover:to-violet-500 text-white shadow-xs shadow-pink-500/20 active:scale-95 transition-all"
                   >
                     Publish Now
                   </button>
@@ -201,9 +201,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </div>
             </div>
           ) : (
-            <div className="p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 text-center space-y-3">
-              <p className="text-sm font-bold text-white">Your personal queue is currently clear.</p>
-              <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+            <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 text-center space-y-3 shadow-xs">
+              <p className="text-sm font-bold text-zinc-900">Your personal queue is currently clear.</p>
+              <p className="text-xs text-zinc-500 max-w-sm mx-auto">
                 Schedule your next personal story or lesson learned to maintain weekly consistency.
               </p>
               <button
@@ -216,10 +216,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
           )}
 
           {/* Quick Idea Sparks */}
-          <div className="p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4">
+          <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 shadow-xs">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-pink-400" />
+              <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-500 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-pink-600" />
                 <span>Personal Story Starters</span>
               </h3>
             </div>
@@ -229,12 +229,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 <button
                   key={i}
                   onClick={() => onQuickCreateWithTopic(topic)}
-                  className="p-3.5 rounded-2xl bg-zinc-900/80 hover:bg-zinc-900 border border-zinc-800 hover:border-pink-500/50 text-left transition-all group"
+                  className="p-3.5 rounded-2xl bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-pink-500 text-left transition-all group shadow-2xs"
                 >
-                  <p className="text-xs font-semibold text-zinc-300 group-hover:text-white line-clamp-1">
+                  <p className="text-xs font-semibold text-zinc-800 group-hover:text-zinc-900 line-clamp-1">
                     "{topic}"
                   </p>
-                  <span className="text-[10px] text-pink-400 font-bold mt-1 inline-block group-hover:translate-x-1 transition-transform">
+                  <span className="text-[10px] text-pink-600 font-bold mt-1 inline-block group-hover:translate-x-1 transition-transform">
                     Draft this story →
                   </span>
                 </button>
@@ -245,12 +245,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
           {/* Scheduled Posts Preview */}
           <div className="space-y-4">
             <div className="flex items-center justify-between px-2">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-400">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-500">
                 Active Personal Queue ({scheduled.length})
               </h3>
               <button
                 onClick={() => onNavigate('scheduled')}
-                className="text-xs font-bold text-pink-400 hover:text-pink-300 flex items-center gap-1 transition-colors"
+                className="text-xs font-bold text-pink-600 hover:text-pink-700 flex items-center gap-1 transition-colors"
               >
                 <span>View Full Queue</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -276,15 +276,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Right Bento Column: Connected Personal Profiles & Sync (4 cols) */}
         <div className="lg:col-span-4 space-y-6">
           {/* Individual Connected Profiles Bento Card */}
-          <div className="p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4">
+          <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 shadow-xs">
             <div className="flex items-center justify-between">
-              <h3 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
-                <UserCheck className="w-4 h-4 text-pink-400" />
+              <h3 className="text-base font-bold text-zinc-900 tracking-tight flex items-center gap-2">
+                <UserCheck className="w-4 h-4 text-pink-600" />
                 <span>My Connected Accounts</span>
               </h3>
               <button
                 onClick={() => onNavigate('settings')}
-                className="text-xs font-bold text-pink-400 hover:text-pink-300"
+                className="text-xs font-bold text-pink-600 hover:text-pink-700"
               >
                 Edit
               </button>
@@ -292,69 +292,69 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
             <div className="space-y-3">
               {/* LinkedIn Personal Profile */}
-              <div className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-2">
+              <div className="p-4 rounded-2xl bg-white border border-zinc-200 space-y-2 shadow-2xs">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-sky-50 text-sky-600 flex items-center justify-center border border-sky-100">
                       <Linkedin className="w-4 h-4" />
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-white">{linkedinAccount?.accountName || 'Alexander Hayes'}</div>
-                      <div className="text-[10px] text-zinc-400">Personal LinkedIn Profile</div>
+                      <div className="text-xs font-bold text-zinc-900">{linkedinAccount?.accountName || 'Alexander Hayes'}</div>
+                      <div className="text-[10px] text-zinc-500">Personal LinkedIn Profile</div>
                     </div>
                   </div>
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
                 </div>
-                <div className="text-[11px] text-zinc-400 flex justify-between pt-1 border-t border-zinc-800/60">
+                <div className="text-[11px] text-zinc-500 flex justify-between pt-1 border-t border-zinc-100">
                   <span>Network:</span>
-                  <span className="font-bold text-white">{linkedinAccount?.followersCount ? `${(linkedinAccount.followersCount / 1000).toFixed(1)}k Connections` : '14.8k'}</span>
+                  <span className="font-bold text-zinc-900">{linkedinAccount?.followersCount ? `${(linkedinAccount.followersCount / 1000).toFixed(1)}k Connections` : '14.8k'}</span>
                 </div>
               </div>
 
               {/* Instagram Personal Creator Profile */}
-              <div className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-2">
+              <div className="p-4 rounded-2xl bg-white border border-zinc-200 space-y-2 shadow-2xs">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-pink-50 text-pink-600 flex items-center justify-center border border-pink-100">
                       <Instagram className="w-4 h-4" />
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-white">{instagramAccount?.username || '@alexander.builds'}</div>
-                      <div className="text-[10px] text-zinc-400">Personal Creator IG</div>
+                      <div className="text-xs font-bold text-zinc-900">{instagramAccount?.username || '@alexander.builds'}</div>
+                      <div className="text-[10px] text-zinc-500">Personal Creator IG</div>
                     </div>
                   </div>
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
                 </div>
-                <div className="text-[11px] text-zinc-400 flex justify-between pt-1 border-t border-zinc-800/60">
+                <div className="text-[11px] text-zinc-500 flex justify-between pt-1 border-t border-zinc-100">
                   <span>Followers:</span>
-                  <span className="font-bold text-white">{instagramAccount?.followersCount ? `${(instagramAccount.followersCount / 1000).toFixed(1)}k Followers` : '28.4k'}</span>
+                  <span className="font-bold text-zinc-900">{instagramAccount?.followersCount ? `${(instagramAccount.followersCount / 1000).toFixed(1)}k Followers` : '28.4k'}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Google Sheets Calendar Pipeline Bento Tile */}
-          <div className="p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4">
+          <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 shadow-xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Table className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-sm font-bold text-white">Google Sheets Sync</h3>
+                <Table className="w-4 h-4 text-emerald-600" />
+                <h3 className="text-sm font-bold text-zinc-900">Google Sheets Sync</h3>
               </div>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-950/50 text-emerald-300 border border-emerald-800/50">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                 Connected
               </span>
             </div>
 
-            <p className="text-xs text-zinc-400">
+            <p className="text-xs text-zinc-600">
               Two-way sync between your personal content calendar sheet and the Django Celery dispatcher.
             </p>
 
             <button
               onClick={() => onNavigate('sheets')}
-              className="w-full py-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-xs font-bold text-zinc-200 hover:text-white border border-zinc-800 transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-full bg-white hover:bg-zinc-100 text-xs font-bold text-zinc-700 hover:text-zinc-900 border border-zinc-200 transition-all flex items-center justify-center gap-2 shadow-2xs"
             >
               <span>Manage Sheets Calendar</span>
-              <ArrowRight className="w-3.5 h-3.5 text-pink-400" />
+              <ArrowRight className="w-3.5 h-3.5 text-pink-600" />
             </button>
           </div>
         </div>

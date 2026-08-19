@@ -35,7 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header 
       id="main-navbar"
-      className="sticky top-0 z-30 flex items-center justify-between px-6 md:px-10 py-3.5 bg-black/90 backdrop-blur-md border-b border-zinc-800/80 text-white"
+      className="sticky top-0 z-30 flex items-center justify-between px-6 md:px-10 py-3.5 bg-white/90 backdrop-blur-md border-b border-zinc-200 text-zinc-900"
     >
       {/* Brand / Logo & Individual Identity */}
       <div className="flex items-center gap-6">
@@ -45,14 +45,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-base font-bold tracking-tight text-white flex items-center gap-2">
+              <h1 className="text-base font-bold tracking-tight text-zinc-900 flex items-center gap-2">
                 ContentFlow
               </h1>
-              <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-pink-300 border border-pink-500/30">
+              <span className="text-[10px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full bg-gradient-to-r from-pink-500/10 to-violet-500/10 text-pink-600 border border-pink-500/20">
                 Personal Creator
               </span>
             </div>
-            <p className="text-[10px] text-zinc-400 font-medium hidden sm:block">
+            <p className="text-[10px] text-zinc-500 font-medium hidden sm:block">
               Solo LinkedIn & Instagram Engine
             </p>
           </div>
@@ -60,14 +60,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Global Search */}
         <div className="hidden md:flex items-center relative ml-2">
-          <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 pointer-events-none" />
+          <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 pointer-events-none" />
           <input
             id="nav-search-input"
             type="text"
             placeholder="Search personal hooks, drafts, topics..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-64 pl-9 pr-4 py-1.5 text-xs bg-zinc-900/90 border border-zinc-800 rounded-full text-white placeholder:text-zinc-500 focus:outline-none focus:border-pink-500/60 focus:ring-1 focus:ring-pink-500/30 transition-all font-medium"
+            className="w-64 pl-9 pr-4 py-1.5 text-xs bg-zinc-50 border border-zinc-200 rounded-full text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500/30 transition-all font-medium"
           />
         </div>
       </div>
@@ -75,41 +75,41 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Integration Badges & Actions */}
       <div className="flex items-center gap-3">
         {/* Status Pills */}
-        <div className="hidden lg:flex items-center gap-1.5 bg-zinc-900/80 p-1 rounded-full border border-zinc-800 text-xs">
+        <div className="hidden lg:flex items-center gap-1.5 bg-zinc-100/80 p-1 rounded-full border border-zinc-200 text-xs">
           {/* LinkedIn Personal Status */}
           <div 
             className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
-              linkedinAccount?.connected ? 'bg-zinc-800 text-white border border-zinc-700' : 'text-zinc-500'
+              linkedinAccount?.connected ? 'bg-white text-zinc-900 border border-zinc-200 shadow-xs' : 'text-zinc-400'
             }`}
             title={linkedinAccount?.connected ? `Personal Profile: ${linkedinAccount.username}` : 'LinkedIn Disconnected'}
           >
-            <Linkedin className="w-3 h-3 text-sky-400" />
+            <Linkedin className="w-3 h-3 text-sky-600" />
             <span className="text-[11px]">Personal Profile</span>
-            {linkedinAccount?.connected && <Check className="w-3 h-3 text-pink-400" />}
+            {linkedinAccount?.connected && <Check className="w-3 h-3 text-pink-600" />}
           </div>
 
           {/* Instagram Personal Status */}
           <div 
             className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
-              instagramAccount?.connected ? 'bg-zinc-800 text-white border border-zinc-700' : 'text-zinc-500'
+              instagramAccount?.connected ? 'bg-white text-zinc-900 border border-zinc-200 shadow-xs' : 'text-zinc-400'
             }`}
             title={instagramAccount?.connected ? `Personal Creator: ${instagramAccount.username}` : 'Instagram Disconnected'}
           >
-            <Instagram className="w-3 h-3 text-pink-400" />
+            <Instagram className="w-3 h-3 text-pink-600" />
             <span className="text-[11px]">Creator IG</span>
-            {instagramAccount?.connected && <Check className="w-3 h-3 text-pink-400" />}
+            {instagramAccount?.connected && <Check className="w-3 h-3 text-pink-600" />}
           </div>
 
           {/* Sheets Status */}
           <div 
             className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
-              sheetsConfig.connected ? 'bg-zinc-800 text-white border border-zinc-700' : 'text-zinc-500'
+              sheetsConfig.connected ? 'bg-white text-zinc-900 border border-zinc-200 shadow-xs' : 'text-zinc-400'
             }`}
             title="Google Sheets Auto-Sync Active"
           >
-            <Table className="w-3 h-3 text-emerald-400" />
+            <Table className="w-3 h-3 text-emerald-600" />
             <span className="text-[11px]">Sheets Sync</span>
-            {sheetsConfig.connected && <Check className="w-3 h-3 text-violet-400" />}
+            {sheetsConfig.connected && <Check className="w-3 h-3 text-violet-600" />}
           </div>
         </div>
 
@@ -117,9 +117,9 @@ export const Navbar: React.FC<NavbarProps> = ({
         <button
           id="btn-view-codebase"
           onClick={onOpenCodebase}
-          className="flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold text-zinc-300 bg-zinc-900 hover:bg-zinc-800 hover:text-white border border-zinc-800 rounded-full transition-all"
+          className="flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold text-zinc-700 bg-zinc-50 hover:bg-zinc-100 hover:text-zinc-900 border border-zinc-200 rounded-full transition-all"
         >
-          <Code2 className="w-3.5 h-3.5 text-violet-400" />
+          <Code2 className="w-3.5 h-3.5 text-violet-600" />
           <span className="hidden sm:inline">Django Code</span>
         </button>
 

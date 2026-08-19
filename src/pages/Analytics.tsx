@@ -69,32 +69,32 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
   return (
     <div id="page-analytics" className="space-y-6">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 relative overflow-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 relative overflow-hidden shadow-xs">
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
 
         <div className="z-10">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-black text-zinc-900 tracking-tight">
               Personal Brand Telemetry
             </h1>
-            <span className="text-[10px] font-bold px-2.5 py-0.5 bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-pink-300 border border-pink-500/30 rounded-full">
+            <span className="text-[10px] font-bold px-2.5 py-0.5 bg-pink-50 text-pink-700 border border-pink-200 rounded-full">
               Live Feed Metrics
             </span>
           </div>
-          <p className="text-xs text-zinc-400 font-medium mt-1">
+          <p className="text-xs text-zinc-500 font-medium mt-1">
             Tracking individual impressions, audience conversion, and profile inbound activity
           </p>
         </div>
 
-        <div className="flex items-center bg-zinc-900 p-1 rounded-full border border-zinc-800 text-xs font-semibold z-10">
+        <div className="flex items-center bg-white p-1 rounded-full border border-zinc-200 text-xs font-semibold z-10 shadow-2xs">
           {(['7d', '30d', '90d'] as const).map((r) => (
             <button
               key={r}
               onClick={() => setTimeRange(r)}
               className={`px-3.5 py-1.5 rounded-full uppercase transition-all ${
                 timeRange === r
-                  ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-sm'
-                  : 'text-zinc-400 hover:text-white'
+                  ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs'
+                  : 'text-zinc-500 hover:text-zinc-900'
               }`}
             >
               {r}
@@ -142,22 +142,22 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
       {/* Bento Grid: Charts & Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Main Reach Trend Area Chart (8 cols) */}
-        <div className="lg:col-span-8 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4">
+        <div className="lg:col-span-8 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 shadow-xs">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-white tracking-tight">Reach Trendline</h2>
-              <p className="text-xs text-zinc-400 mt-0.5">
+              <h2 className="text-lg font-bold text-zinc-900 tracking-tight">Reach Trendline</h2>
+              <p className="text-xs text-zinc-500 mt-0.5">
                 Daily organic impressions across your personal profiles
               </p>
             </div>
 
             <div className="flex items-center gap-3 text-xs font-bold">
-              <div className="flex items-center gap-1.5 text-violet-400">
-                <span className="w-2.5 h-2.5 rounded-full bg-violet-500" />
+              <div className="flex items-center gap-1.5 text-violet-700">
+                <span className="w-2.5 h-2.5 rounded-full bg-violet-600" />
                 <span>LinkedIn</span>
               </div>
-              <div className="flex items-center gap-1.5 text-pink-400">
-                <span className="w-2.5 h-2.5 rounded-full bg-pink-500" />
+              <div className="flex items-center gap-1.5 text-pink-700">
+                <span className="w-2.5 h-2.5 rounded-full bg-pink-600" />
                 <span>Instagram</span>
               </div>
             </div>
@@ -176,17 +176,17 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
                     <stop offset="95%" stopColor="#ec4899" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e4e4e7" vertical={false} />
                 <XAxis dataKey="date" stroke="#71717a" fontSize={11} tickLine={false} />
                 <YAxis stroke="#71717a" fontSize={11} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#09090b',
-                    borderColor: '#27272a',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#e4e4e7',
                     borderRadius: '16px',
-                    color: '#ffffff',
+                    color: '#18181b',
                     fontSize: '12px',
-                    boxShadow: '0 8px 16px -4px rgb(0 0 0 / 0.5)',
+                    boxShadow: '0 8px 16px -4px rgb(0 0 0 / 0.1)',
                   }}
                 />
                 <Area type="monotone" dataKey="linkedin" stroke="#8b5cf6" strokeWidth={2.5} fillOpacity={1} fill="url(#colorLinkedin)" />
@@ -197,10 +197,10 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
         </div>
 
         {/* Platform Share Pie Bento Tile (4 cols) */}
-        <div className="lg:col-span-4 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 flex flex-col justify-between space-y-4">
+        <div className="lg:col-span-4 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 flex flex-col justify-between space-y-4 shadow-xs">
           <div>
-            <h2 className="text-lg font-bold text-white tracking-tight">Channel Split</h2>
-            <p className="text-xs text-zinc-400 mt-0.5">
+            <h2 className="text-lg font-bold text-zinc-900 tracking-tight">Channel Split</h2>
+            <p className="text-xs text-zinc-500 mt-0.5">
               Personal audience share
             </p>
           </div>
@@ -223,52 +223,53 @@ export const Analytics: React.FC<AnalyticsProps> = ({ posts }) => {
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#09090b',
-                    borderColor: '#27272a',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#e4e4e7',
                     borderRadius: '16px',
                     fontSize: '12px',
-                    color: '#ffffff',
+                    color: '#18181b',
+                    boxShadow: '0 8px 16px -4px rgb(0 0 0 / 0.1)',
                   }}
                 />
               </PieChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="space-y-2 pt-2 border-t border-zinc-900">
+          <div className="space-y-2 pt-2 border-t border-zinc-200">
             <div className="flex items-center justify-between text-xs">
-              <span className="flex items-center gap-2 text-zinc-300 font-semibold">
-                <span className="w-2.5 h-2.5 rounded-full bg-violet-500" /> Personal LinkedIn
+              <span className="flex items-center gap-2 text-zinc-700 font-semibold">
+                <span className="w-2.5 h-2.5 rounded-full bg-violet-600" /> Personal LinkedIn
               </span>
-              <span className="font-bold text-white">58%</span>
+              <span className="font-bold text-zinc-900">58%</span>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="flex items-center gap-2 text-zinc-300 font-semibold">
-                <span className="w-2.5 h-2.5 rounded-full bg-pink-500" /> Creator IG
+              <span className="flex items-center gap-2 text-zinc-700 font-semibold">
+                <span className="w-2.5 h-2.5 rounded-full bg-pink-600" /> Creator IG
               </span>
-              <span className="font-bold text-white">42%</span>
+              <span className="font-bold text-zinc-900">42%</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Heatmap Bento Grid */}
-      <div className="p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-4">
+      <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-4 shadow-xs">
         <div>
-          <h2 className="text-lg font-bold text-white tracking-tight">Optimal Creator Dispatch Windows</h2>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <h2 className="text-lg font-bold text-zinc-900 tracking-tight">Optimal Creator Dispatch Windows</h2>
+          <p className="text-xs text-zinc-500 mt-0.5">
             AI calculated from follower active hours and algorithm feed velocity
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
           {bestPostingTimes.map((item, idx) => (
-            <div key={idx} className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-2 text-center">
-              <span className="text-xs font-bold uppercase text-zinc-500">{item.day}</span>
-              <div className="text-lg font-black text-white">{item.time}</div>
-              <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-pink-300 border border-pink-500/30">
+            <div key={idx} className="p-4 rounded-2xl bg-white border border-zinc-200 space-y-2 text-center shadow-2xs">
+              <span className="text-xs font-bold uppercase text-zinc-400">{item.day}</span>
+              <div className="text-lg font-black text-zinc-900">{item.time}</div>
+              <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-pink-50 text-pink-700 border border-pink-200">
                 {item.engagement}
               </span>
-              <p className="text-[10px] text-zinc-400 font-medium">{item.platform}</p>
+              <p className="text-[10px] text-zinc-500 font-medium">{item.platform}</p>
             </div>
           ))}
         </div>

@@ -486,14 +486,14 @@ export const CodebaseViewer: React.FC = () => {
   return (
     <div id="page-codebase-viewer" className="space-y-6">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 relative overflow-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 relative overflow-hidden shadow-xs">
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
 
         <div className="z-10">
-          <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
+          <h1 className="text-2xl md:text-3xl font-black text-zinc-900 tracking-tight flex items-center gap-2.5">
             <span>Django Backend & Dispatch Engine</span>
           </h1>
-          <p className="text-xs text-zinc-400 font-medium mt-1">
+          <p className="text-xs text-zinc-500 font-medium mt-1">
             Browse, inspect, and copy complete Django apps, Celery workers, and Sheets services
           </p>
         </div>
@@ -510,13 +510,13 @@ export const CodebaseViewer: React.FC = () => {
       </div>
 
       {/* Category Tabs */}
-      <div className="flex items-center gap-1 bg-zinc-950 p-1 rounded-full border border-zinc-800/80 w-fit text-xs font-semibold">
+      <div className="flex items-center gap-1 bg-zinc-50 p-1 rounded-full border border-zinc-200 w-fit text-xs font-semibold shadow-2xs">
         <button
           onClick={() => setFilterCategory('all')}
           className={`px-3.5 py-1.5 rounded-full transition-all ${
             filterCategory === 'all'
-              ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-sm'
-              : 'text-zinc-400 hover:text-white'
+              ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs'
+              : 'text-zinc-600 hover:text-zinc-900'
           }`}
         >
           All Files ({CODEBASE_FILES.length})
@@ -525,8 +525,8 @@ export const CodebaseViewer: React.FC = () => {
           onClick={() => setFilterCategory('django')}
           className={`px-3.5 py-1.5 rounded-full transition-all ${
             filterCategory === 'django'
-              ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-sm'
-              : 'text-zinc-400 hover:text-white'
+              ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs'
+              : 'text-zinc-600 hover:text-zinc-900'
           }`}
         >
           Django Backend
@@ -535,8 +535,8 @@ export const CodebaseViewer: React.FC = () => {
           onClick={() => setFilterCategory('sheets')}
           className={`px-3.5 py-1.5 rounded-full transition-all ${
             filterCategory === 'sheets'
-              ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-sm'
-              : 'text-zinc-400 hover:text-white'
+              ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs'
+              : 'text-zinc-600 hover:text-zinc-900'
           }`}
         >
           Google Sheets Schemas
@@ -545,8 +545,8 @@ export const CodebaseViewer: React.FC = () => {
           onClick={() => setFilterCategory('docs')}
           className={`px-3.5 py-1.5 rounded-full transition-all ${
             filterCategory === 'docs'
-              ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-sm'
-              : 'text-zinc-400 hover:text-white'
+              ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs'
+              : 'text-zinc-600 hover:text-zinc-900'
           }`}
         >
           API & Setup Docs
@@ -556,7 +556,7 @@ export const CodebaseViewer: React.FC = () => {
       {/* 2-Column Code Explorer */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left: File Tree List (4 cols) */}
-        <div className="lg:col-span-4 p-5 rounded-3xl bg-zinc-950 border border-zinc-800/80 space-y-2">
+        <div className="lg:col-span-4 p-5 rounded-3xl bg-zinc-50 border border-zinc-200 space-y-2 shadow-xs">
           <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 block mb-2 px-2">
             Project Files
           </span>
@@ -570,8 +570,8 @@ export const CodebaseViewer: React.FC = () => {
                   onClick={() => setSelectedFile(file)}
                   className={`w-full text-left px-3.5 py-2.5 rounded-2xl text-xs font-mono transition-all flex items-center justify-between group ${
                     isSelected
-                      ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-sm shadow-pink-500/20'
-                      : 'text-zinc-400 hover:text-white hover:bg-zinc-900'
+                      ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white font-bold shadow-xs shadow-pink-500/20'
+                      : 'text-zinc-700 hover:text-zinc-900 hover:bg-white'
                   }`}
                 >
                   <div className="flex items-center gap-2 truncate">
@@ -579,7 +579,7 @@ export const CodebaseViewer: React.FC = () => {
                     <span className="truncate">{file.path}</span>
                   </div>
                   <span className={`text-[9px] uppercase px-2 py-0.5 rounded-full font-bold ${
-                    isSelected ? 'bg-white/20 text-white' : 'bg-zinc-900 text-zinc-400 border border-zinc-800'
+                    isSelected ? 'bg-white/20 text-white' : 'bg-white text-zinc-600 border border-zinc-200'
                   }`}>
                     {file.language}
                   </span>
@@ -590,16 +590,16 @@ export const CodebaseViewer: React.FC = () => {
         </div>
 
         {/* Right: Code Viewer (8 cols) */}
-        <div className="lg:col-span-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 overflow-hidden">
+        <div className="lg:col-span-8 rounded-3xl bg-zinc-50 border border-zinc-200 overflow-hidden shadow-xs">
           {/* File Top Meta */}
-          <div className="flex items-center justify-between px-6 py-4 bg-zinc-900 border-b border-zinc-800">
+          <div className="flex items-center justify-between px-6 py-4 bg-white border-b border-zinc-200">
             <div>
-              <p className="font-mono text-xs font-bold text-white flex items-center gap-2">
+              <p className="font-mono text-xs font-bold text-zinc-900 flex items-center gap-2">
                 <span>{selectedFile.path}</span>
               </p>
-              <p className="text-[11px] text-zinc-400 mt-0.5">{selectedFile.description}</p>
+              <p className="text-[11px] text-zinc-500 mt-0.5">{selectedFile.description}</p>
             </div>
-            <span className="text-[10px] font-mono uppercase bg-zinc-950 text-pink-400 px-2.5 py-1 rounded-full font-bold border border-zinc-800">
+            <span className="text-[10px] font-mono uppercase bg-zinc-100 text-pink-700 px-2.5 py-1 rounded-full font-bold border border-zinc-200">
               {selectedFile.language}
             </span>
           </div>

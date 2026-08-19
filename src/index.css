@@ -6,8 +6,8 @@
   }
 
   body {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #09090b;
     overflow-x: hidden;
   }
 
@@ -17,21 +17,21 @@
   }
 }
 
-/* Custom dark scrollbar with subtle violet/pink accent on hover */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #09090b;
+  background: #f4f4f5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #d4d4d8;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7c3aed;
+  background: #a855f7;
 }

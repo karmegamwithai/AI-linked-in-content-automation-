@@ -84,22 +84,22 @@ export const CreatePost: React.FC<CreatePostProps> = ({
   return (
     <div id="page-create-post" className="space-y-6 max-w-7xl mx-auto pb-12">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80 relative overflow-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 relative overflow-hidden shadow-xs">
         <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-pink-500/10 via-violet-600/10 to-transparent rounded-bl-full pointer-events-none" />
 
         <div className="flex items-center gap-4 z-10">
           <button
             onClick={onCancel}
-            className="p-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition-all"
+            className="p-2.5 rounded-full bg-white hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 border border-zinc-200 transition-all shadow-2xs"
             title="Go back"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div>
-            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight flex items-center gap-2">
+            <h1 className="text-2xl md:text-3xl font-black text-zinc-900 tracking-tight flex items-center gap-2">
               <span>{initialPost ? 'Edit Personal Post' : 'Craft Personal Story'}</span>
             </h1>
-            <p className="text-[10px] text-pink-400 font-bold uppercase tracking-wider mt-0.5">
+            <p className="text-[10px] text-pink-600 font-bold uppercase tracking-wider mt-0.5">
               Personal LinkedIn Profile & Creator Instagram Engine
             </p>
           </div>
@@ -111,7 +111,7 @@ export const CreatePost: React.FC<CreatePostProps> = ({
             id="btn-save-as-draft"
             type="button"
             onClick={() => handleSaveClick('draft')}
-            className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-zinc-300 bg-zinc-900 hover:bg-zinc-800 hover:text-white rounded-full border border-zinc-800 transition-all"
+            className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-zinc-700 bg-white hover:bg-zinc-100 hover:text-zinc-900 rounded-full border border-zinc-200 transition-all shadow-2xs"
           >
             <Save className="w-3.5 h-3.5" />
             <span>Save Draft</span>
@@ -130,7 +130,7 @@ export const CreatePost: React.FC<CreatePostProps> = ({
       </div>
 
       {/* Target Platforms Bento Tile */}
-      <div className="p-6 md:p-8 rounded-3xl bg-zinc-950 border border-zinc-800/80">
+      <div className="p-6 md:p-8 rounded-3xl bg-zinc-50 border border-zinc-200 shadow-xs">
         <PlatformSelector
           selectedPlatforms={postData.platforms || ['linkedin', 'instagram']}
           onChange={(platforms) => handleUpdate({ platforms })}

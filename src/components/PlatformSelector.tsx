@@ -26,10 +26,10 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+        <label className="text-xs font-bold uppercase tracking-widest text-zinc-500">
           Target Personal Profiles
         </label>
-        <span className="text-[11px] text-zinc-500 font-medium">
+        <span className="text-[11px] text-zinc-400 font-medium">
           {selectedPlatforms.length === 2 ? 'Cross-posting enabled' : 'Single channel'}
         </span>
       </div>
@@ -42,26 +42,26 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
           onClick={() => togglePlatform('linkedin')}
           className={`flex items-center justify-between p-4 rounded-2xl border transition-all text-left group ${
             isLinkedInSelected
-              ? 'bg-gradient-to-r from-pink-500/15 via-fuchsia-500/15 to-violet-600/15 border-pink-500/50 shadow-md shadow-pink-500/10'
-              : 'bg-zinc-950 border-zinc-800/80 hover:border-zinc-700 opacity-60'
+              ? 'bg-gradient-to-r from-pink-500/10 via-fuchsia-500/10 to-violet-600/10 border-pink-500/50 shadow-xs'
+              : 'bg-zinc-50 border-zinc-200 hover:border-zinc-300 opacity-70'
           }`}
         >
           <div className="flex items-center gap-3">
             <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
-              isLinkedInSelected ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white shadow-sm' : 'bg-zinc-900 text-zinc-400'
+              isLinkedInSelected ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white shadow-xs' : 'bg-zinc-200 text-zinc-600'
             }`}>
               <Linkedin className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-xs font-bold text-white flex items-center gap-1.5">
+              <div className="text-xs font-bold text-zinc-900 flex items-center gap-1.5">
                 <span>Personal LinkedIn Profile</span>
               </div>
-              <p className="text-[10px] text-zinc-400">Long-form thought leadership & stories</p>
+              <p className="text-[10px] text-zinc-500">Long-form thought leadership & stories</p>
             </div>
           </div>
 
           <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
-            isLinkedInSelected ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white' : 'border border-zinc-700 bg-zinc-900'
+            isLinkedInSelected ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white' : 'border border-zinc-300 bg-white'
           }`}>
             {isLinkedInSelected && <Check className="w-3 h-3 text-white stroke-[3]" />}
           </div>
@@ -74,26 +74,26 @@ export const PlatformSelector: React.FC<PlatformSelectorProps> = ({
           onClick={() => togglePlatform('instagram')}
           className={`flex items-center justify-between p-4 rounded-2xl border transition-all text-left group ${
             isInstagramSelected
-              ? 'bg-gradient-to-r from-pink-500/15 via-fuchsia-500/15 to-violet-600/15 border-pink-500/50 shadow-md shadow-pink-500/10'
-              : 'bg-zinc-950 border-zinc-800/80 hover:border-zinc-700 opacity-60'
+              ? 'bg-gradient-to-r from-pink-500/10 via-fuchsia-500/10 to-violet-600/10 border-pink-500/50 shadow-xs'
+              : 'bg-zinc-50 border-zinc-200 hover:border-zinc-300 opacity-70'
           }`}
         >
           <div className="flex items-center gap-3">
             <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
-              isInstagramSelected ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white shadow-sm' : 'bg-zinc-900 text-zinc-400'
+              isInstagramSelected ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white shadow-xs' : 'bg-zinc-200 text-zinc-600'
             }`}>
               <Instagram className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-xs font-bold text-white flex items-center gap-1.5">
+              <div className="text-xs font-bold text-zinc-900 flex items-center gap-1.5">
                 <span>Personal Creator IG</span>
               </div>
-              <p className="text-[10px] text-zinc-400">Carousel, visuals & engaging captions</p>
+              <p className="text-[10px] text-zinc-500">Carousel, visuals & engaging captions</p>
             </div>
           </div>
 
           <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
-            isInstagramSelected ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white' : 'border border-zinc-700 bg-zinc-900'
+            isInstagramSelected ? 'bg-gradient-to-r from-pink-500 to-violet-600 text-white' : 'border border-zinc-300 bg-white'
           }`}>
             {isInstagramSelected && <Check className="w-3 h-3 text-white stroke-[3]" />}
           </div>

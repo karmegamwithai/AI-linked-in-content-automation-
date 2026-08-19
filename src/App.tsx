@@ -177,7 +177,7 @@ export default function App() {
     : posts;
 
   return (
-    <div id="contentflow-app-root" className="min-h-screen bg-[#000000] text-white font-['Urbanist',sans-serif] selection:bg-pink-500 selection:text-white">
+    <div id="contentflow-app-root" className="min-h-screen bg-white text-zinc-900 font-['Urbanist',sans-serif] selection:bg-pink-500 selection:text-white">
       {/* Top Navigation */}
       <Navbar
         accounts={accounts}
@@ -192,7 +192,7 @@ export default function App() {
       />
 
       {/* Main Container Layout */}
-      <div className="flex bg-[#000000]">
+      <div className="flex bg-white">
         {/* Left Sidebar */}
         <Sidebar
           currentPage={currentPage}
@@ -204,7 +204,7 @@ export default function App() {
         />
 
         {/* Dynamic Page Content */}
-        <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto overflow-y-auto min-h-[calc(100vh-65px)] bg-[#000000]">
+        <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto overflow-y-auto min-h-[calc(100vh-65px)] bg-white">
           {currentPage === 'dashboard' && (
             <Dashboard
               posts={filteredPosts}
